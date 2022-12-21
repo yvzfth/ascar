@@ -204,7 +204,7 @@ const Navbar = () => {
       <div className='max-lg:hidden'>
         {options.map((option) => {
           return (
-            <Button color='error'>
+            <Button key={option} color='error'>
               <Link href={getClickedTabPath(option)}>{option}</Link>
             </Button>
           );
