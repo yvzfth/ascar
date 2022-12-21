@@ -5,6 +5,7 @@ const rent = () => {
   return (
     <div>
       <Navbar />
+      Kirala
     </div>
   );
 };

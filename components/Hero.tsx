@@ -96,7 +96,7 @@ const Hero = () => {
                   Alt Limit
                 </InputLabel>
                 <NativeSelect
-                  //   className='text-white '
+                  className='w-[6.5rem] '
                   defaultValue={'Hepsi'}
                   inputProps={{
                     name: 'min',
@@ -121,7 +121,7 @@ const Hero = () => {
                   Üst Limit
                 </InputLabel>
                 <NativeSelect
-                  //   className='text-white'
+                  className='w-[6.5rem]'
                   defaultValue={'Hepsi'}
                   inputProps={{
                     name: 'max',

@@ -5,6 +5,7 @@ const buy = () => {
   return (
     <div>
       <Navbar />
+      Satın Al
     </div>
   );
 };

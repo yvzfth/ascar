@@ -5,6 +5,7 @@ const gallery = () => {
   return (
     <div>
       <Navbar />
+      Araçlar
     </div>
   );
 };
