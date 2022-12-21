@@ -49,21 +49,21 @@ export function SelectTextFields() {
 const Hero = () => {
   return (
     <div className='w-full h-full flex flex-col items-center lg:flex-row lg:justify-evenly'>
-      <Paper className='bg-transparent p-10 max-w-[26rem] shadow-lg shadow-red-400 m-10'>
-        <Typography className='text-white text-6xl font-bold'>
+      <Paper className='bg-transparent p-10 max-w-[20rem] lg:max-w-[26rem] shadow-lg shadow-red-400 m-10'>
+        <Typography className='text-white text-4xl lg:text-6xl font-bold'>
           Hayalindeki <br />
           arabayı bul
         </Typography>
-        <Typography className='text-gray-500 text-lg pt-2'>
+        <Typography className='text-gray-500 text-md lg:text-lg  pt-2'>
           Size en uygun arabayı bulmanıza yardımcı olacağız. Göz at, modelleri
           karşılaştır ve araban seni bekliyor.
         </Typography>
       </Paper>
       <Card
-        className=' max-w-[26rem] p-10 m-10 flex flex-col justify-center  bg-[#FFECEF]'
+        className=' max-w-[20rem] w-[20rem] lg:w-[26rem] lg:max-w-[26rem] p-10 m-10 flex flex-col justify-center items-center  bg-[#FFECEF]'
         component={'form'}
       >
-        <FormControl className='w-[20rem]'>
+        <FormControl className='w-[15rem] lg:w-[20rem]'>
           <InputLabel
             // className='text-slate-400'
             variant='standard'
@@ -139,6 +139,7 @@ const Hero = () => {
           </div>
         </FormControl>
         <Button
+          fullWidth
           className='mt-10'
           color='info'
           variant='contained'
