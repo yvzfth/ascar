@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 
 const buy = () => {
   return (
-    <div>
+    <div className='h-screen'>
       <Head>
         <title>AsCar</title>
         <meta name='description' content='AsCar - Araç Kirala, Al, Sat' />

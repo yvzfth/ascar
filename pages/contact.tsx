@@ -101,7 +101,7 @@ function MyForm() {
 }
 const contact = () => {
   return (
-    <div className='h-screen'>
+    <div className='h-screen pb-8'>
       <Head>
         <title>AsCar</title>
         <meta name='description' content='AsCar - Araç Kirala, Al, Sat' />
