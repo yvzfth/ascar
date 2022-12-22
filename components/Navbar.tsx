@@ -110,7 +110,7 @@ export function AccountMenu() {
   );
 }
 
-const options = ['Anasayfa', 'Kirala', 'Satın Al', 'Araçlarımız', 'İletişim'];
+const options = ['Kirala', 'Satın Al', 'Araçlarımız', 'İletişim'];
 
 const getClickedTabPath = (option: string): string => {
   let path = '/';
@@ -190,7 +190,7 @@ const Navbar = () => {
       }
     >
       <div className='max-lg:hidden'>
-        <a>
+        <Link href={'/'}>
           <Image
             src='/vercel.svg'
             alt='Vercel Logo'
@@ -199,7 +199,7 @@ const Navbar = () => {
             height={24}
             priority
           />
-        </a>
+        </Link>
       </div>
       <div className='max-lg:hidden'>
         {options.map((option) => {
@@ -212,7 +212,7 @@ const Navbar = () => {
       </div>
       <LongMenu />
       <div className='lg:hidden'>
-        <a>
+        <Link href={'/'}>
           <Image
             src='/vercel.svg'
             alt='Vercel Logo'
@@ -221,7 +221,7 @@ const Navbar = () => {
             height={24}
             priority
           />
-        </a>
+        </Link>
       </div>
       <AccountMenu />
     </div>

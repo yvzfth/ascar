@@ -5,6 +5,7 @@ import styles from '../styles/Home.module.css';
 import * as React from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
+import CarCardContainer from '../components/CarCardContainer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -33,7 +34,7 @@ export default function Home() {
             alt='car-silver'
           />
         </div>
-
+        <CarCardContainer />
         {/* <div className={styles.grid}>
           <a
             href='https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'

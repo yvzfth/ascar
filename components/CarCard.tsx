@@ -13,7 +13,7 @@ export default function ImgMediaCard() {
         component='img'
         alt='green iguana'
         height='140'
-        image='/static/images/cards/contemplative-reptile.jpg'
+        image='/car-silver.png'
       />
       <CardContent>
         <Typography gutterBottom variant='h5' component='div'>
