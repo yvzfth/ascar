@@ -17,6 +17,23 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+const options = ['KİRALA', 'SATIN AL', 'ARAÇLARIMIZ', 'İLETİŞİM'];
+
+const getClickedTabPath = (option: string): string => {
+  let path = '/';
+  if (option === 'İLETİŞİM') {
+    path = '/contact';
+  } else if (option === 'KİRALA') {
+    path = '/rent';
+  } else if (option === 'SATIN AL') {
+    path = '/buy';
+  } else if (option === 'ARAÇLARIMIZ') {
+    path = '/gallery';
+  }
+  return path;
+};
 
 export function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -110,79 +127,10 @@ export function AccountMenu() {
   );
 }
 
-const options = ['Kirala', 'Satın Al', 'Araçlarımız', 'İletişim'];
-
-const getClickedTabPath = (option: string): string => {
-  let path = '/';
-  if (option === 'İletişim') {
-    path = '/contact';
-  } else if (option === 'Kirala') {
-    path = '/rent';
-  } else if (option === 'Satın Al') {
-    path = '/buy';
-  } else if (option === 'Araçlarımız') {
-    path = '/gallery';
-  }
-  return path;
-};
-
-const ITEM_HEIGHT = 48;
-
-export function LongMenu() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  return (
-    <div className='lg:hidden'>
-      <IconButton
-        aria-label='more'
-        id='long-button'
-        aria-controls={open ? 'long-menu' : undefined}
-        aria-expanded={open ? 'true' : undefined}
-        aria-haspopup='true'
-        onClick={handleClick}
-        color='error'
-      >
-        <MoreVertIcon className='text-4xl' />
-      </IconButton>
-      <Menu
-        id='long-menu'
-        MenuListProps={{
-          'aria-labelledby': 'long-button',
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        PaperProps={{
-          style: {
-            maxHeight: ITEM_HEIGHT * 4.5,
-            width: '20ch',
-          },
-        }}
-      >
-        {options.map((option) => {
-          return (
-            <MenuItem
-              key={option}
-              selected={option === 'Anasayfa'}
-              onClick={handleClose}
-            >
-              <Link href={getClickedTabPath(option)}>{option}</Link>
-            </MenuItem>
-          );
-        })}
-      </Menu>
-    </div>
-  );
-}
-
 const Navbar = () => {
+  const NavbarLinks = dynamic(() => import('./NavbarLinks'), {
+    ssr: false,
+  });
   return (
     <div
       className={
@@ -201,16 +149,8 @@ const Navbar = () => {
           />
         </Link>
       </div>
-      <div className='max-lg:hidden'>
-        {options.map((option) => {
-          return (
-            <Button key={option} color='error'>
-              <Link href={getClickedTabPath(option)}>{option}</Link>
-            </Button>
-          );
-        })}
-      </div>
-      <LongMenu />
+
+      <NavbarLinks options={options} getClickedTabPath={getClickedTabPath} />
       <div className='lg:hidden'>
         <Link href={'/'}>
           <Image

@@ -49,7 +49,7 @@ export function SelectTextFields() {
 const Hero = () => {
   return (
     <div className='w-full h-full flex flex-col items-center lg:flex-row lg:justify-evenly'>
-      <Paper className='bg-transparent p-10 max-w-[20rem] lg:max-w-[26rem] shadow-lg shadow-red-400 m-10 '>
+      <Paper className='bg-transparent p-10 max-w-[20rem] lg:max-w-[26rem] shadow-md shadow-red-400 m-10 '>
         <Typography className='text-black dark:text-white text-4xl lg:text-6xl font-bold'>
           Hayalindeki <br />
           arabayı bul
@@ -59,8 +59,8 @@ const Hero = () => {
           karşılaştır ve araban seni bekliyor.
         </Typography>
       </Paper>
-      <Card
-        className=' max-w-[20rem] w-[20rem] lg:w-[26rem] lg:max-w-[26rem] p-10 m-10 flex flex-col justify-center items-center  bg-[#FFECEF]'
+      <Paper
+        className=' max-w-[20rem] w-[20rem] lg:w-[26rem] lg:max-w-[26rem] p-10 m-10 flex flex-col justify-center items-center bg-[#FFE6F2]'
         component={'form'}
       >
         <FormControl className='w-[15rem] lg:w-[20rem]'>
@@ -141,7 +141,7 @@ const Hero = () => {
         <Button
           fullWidth
           className='mt-10'
-          color='info'
+          color='error'
           variant='contained'
           sx={{
             '& .MuiButtonBase-root.MuiButton-root ': {
@@ -151,7 +151,7 @@ const Hero = () => {
         >
           Ara
         </Button>
-      </Card>
+      </Paper>
     </div>
   );
 };

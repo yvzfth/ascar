@@ -13,6 +13,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import { useState } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 
 interface state {
   name: string;
@@ -43,7 +44,7 @@ function MyForm() {
   // };
 
   return (
-    <Card className='w-[20rem] lg:w-[30rem] bg-transparent dark:text-white p-8 bg-gray-900 rounded-lg'>
+    <Card className='w-[20rem] lg:w-[30rem] bg-transparent dark:text-white p-8 bg-[#FFE6F2] rounded-lg '>
       <form
         className='flex flex-col space-y-4'
         // onSubmit={handleSubmit}
@@ -94,7 +95,9 @@ function MyForm() {
             style={{ width: 200 }}
           />
         </div>
-        <Button type='submit'>Gönder</Button>
+        <Button variant='contained' color='error' type='submit'>
+          Gönder
+        </Button>
       </form>
     </Card>
   );
@@ -112,7 +115,7 @@ const contact = () => {
       {/* <form action='/' method='post'>
         <TextField id='outlined-basic' label='Outlined' variant='outlined' />
       </form> */}
-      <div className='items-center justify-center flex w-full p-10 flex-col lg:flex-row'>
+      <div className='items-center justify-center flex w-full p-10 flex-col lg:flex-row lg:space-x-20'>
         <div className='lg:w-1/3 p-10 flex flex-col items-center justify-center lg:justify-start lg:items-start'>
           <div className='flex flex-col justify-center items-center lg:items-start'>
             <Typography className='text-3xl font-bold lg:text-4xl py-2 '>
@@ -132,21 +135,27 @@ const contact = () => {
           </div>
           <div>
             <Typography className='text-3xl py-2'>
-              (123) <span className='text-orange-400'>456-78901</span>
+              (123) <span className='text-[#E38B29]'>456-78901</span>
             </Typography>
           </div>
           <div>
             <Typography>
-              <MailOutline className='text-orange-400 pr-2' />
+              <MailOutline className='text-[#E38B29] pr-2' />
               support@vehica.com
             </Typography>
           </div>
           <div className='flex flex-col lg:flex-row items-center divide-y lg:divide-y-0 pt-10 space-x-0 lg:space-x-8'>
             <Typography className='pb-4 lg:pb-0'>Follow Us</Typography>
             <div className='flex space-x-8 pt-4 lg:pt-0'>
-              <Facebook className='text-4xl' />
-              <Twitter className='text-4xl' />
-              <Instagram className='text-4xl' />
+              <Link href={'https://facebook.com'} target='_blank'>
+                <Facebook className='text-4xl' />
+              </Link>
+              <Link href={'https://twitter.com'} target='_blank'>
+                <Twitter className='text-4xl' />
+              </Link>
+              <Link href={'https://instagram.com'} target='_blank'>
+                <Instagram className='text-4xl' />
+              </Link>
             </div>
           </div>
         </div>
