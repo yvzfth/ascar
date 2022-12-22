@@ -9,6 +9,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import { useState } from 'react';
 import { stringify } from 'querystring';
+import Head from 'next/head';
 
 interface state {
   name: string;
@@ -90,6 +91,12 @@ function MyForm() {
 const contact = () => {
   return (
     <div className='h-screen'>
+      <Head>
+        <title>AsCar</title>
+        <meta name='description' content='AsCar - Araç Kirala, Al, Sat' />
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
       <Navbar />
       {/* <form action='/' method='post'>
         <TextField id='outlined-basic' label='Outlined' variant='outlined' />
