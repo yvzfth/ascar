@@ -131,7 +131,7 @@ const contact = () => {
             </Typography>
           </div>
           <div>
-            <Typography className='text-4xl py-2'>
+            <Typography className='text-3xl py-2'>
               (123) <span className='text-orange-400'>456-78901</span>
             </Typography>
           </div>
