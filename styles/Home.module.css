@@ -100,7 +100,7 @@
   content: '';
   left: 50%;
   position: absolute;
-  filter: blur(45px);
+  filter: blur(100px);
   transform: translateZ(0);
 }
 

@@ -49,8 +49,8 @@ export function SelectTextFields() {
 const Hero = () => {
   return (
     <div className='w-full h-full flex flex-col items-center lg:flex-row lg:justify-evenly'>
-      <Paper className='bg-transparent p-10 max-w-[20rem] lg:max-w-[26rem] shadow-lg shadow-red-400 m-10'>
-        <Typography className='text-white text-4xl lg:text-6xl font-bold'>
+      <Paper className='bg-transparent p-10 max-w-[20rem] lg:max-w-[26rem] shadow-lg shadow-red-400 m-10 '>
+        <Typography className='text-black dark:text-white text-4xl lg:text-6xl font-bold'>
           Hayalindeki <br />
           arabayı bul
         </Typography>

@@ -38,7 +38,7 @@ function MyForm() {
   // };
 
   return (
-    <Card className='w-[20rem] lg:w-[50%] bg-transparent text-white'>
+    <Card className='w-[20rem] lg:w-[50%] bg-transparent dark:text-white p-4'>
       <form
         className='flex flex-col space-y-4'
         // onSubmit={handleSubmit}
@@ -49,7 +49,7 @@ function MyForm() {
         <div>
           <Typography>İsminiz</Typography>
           <input
-            className='w-full text-gray-200'
+            className='w-full dark:text-gray-200 bg-[rgb(247,247,247)] p-2 rounded-sm dark:bg-[-webkit-control-background]'
             // label='İsminizi giriniz'
             placeholder='Ahmet Kaya'
             type='text'
@@ -61,7 +61,7 @@ function MyForm() {
         <div>
           <Typography>Email</Typography>
           <input
-            className='w-full text-gray-200'
+            className='w-full dark:text-gray-200 bg-[rgb(247,247,247)] p-2 rounded-sm dark:bg-[-webkit-control-background]'
             placeholder='isim@mail.com'
             type={'email'}
             name='email'
@@ -73,7 +73,7 @@ function MyForm() {
           <Typography>Mesajınız</Typography>
           {/* <textarea name='message' value={textarea} onChange={handleChange} /> */}
           <textarea
-            className='w-full text-gray-200'
+            className='w-full dark:text-gray-200 bg-[rgb(247,247,247)] p-2 rounded-sm dark:bg-[-webkit-control-background]'
             name='message'
             onChange={handleChange}
             aria-label='minimum height'
@@ -89,7 +89,7 @@ function MyForm() {
 }
 const contact = () => {
   return (
-    <div>
+    <div className='h-screen'>
       <Navbar />
       {/* <form action='/' method='post'>
         <TextField id='outlined-basic' label='Outlined' variant='outlined' />
