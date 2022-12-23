@@ -7,6 +7,12 @@ module.exports = {
   theme: {
     extend: {},
   },
+
   plugins: [],
   important: true,
+  variants: {
+    height: ['responsive', 'hover', 'first'],
+    widtht: ['responsive', 'hover', 'first'],
+    background: ['responsive', 'hover', 'first'],
+  },
 };

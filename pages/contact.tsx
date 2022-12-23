@@ -14,6 +14,7 @@ import Navbar from '../components/Navbar';
 import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import FollowUs from '../components/FollowUs';
 
 interface state {
   name: string;
@@ -138,26 +139,13 @@ const contact = () => {
               (123) <span className='text-[#E38B29]'>456-78901</span>
             </Typography>
           </div>
-          <div>
+          <div className='pb-10'>
             <Typography>
               <MailOutline className='text-[#E38B29] pr-2' />
               support@vehica.com
             </Typography>
           </div>
-          <div className='flex flex-col lg:flex-row items-center divide-y lg:divide-y-0 pt-10 space-x-0 lg:space-x-8'>
-            <Typography className='pb-4 lg:pb-0'>Follow Us</Typography>
-            <div className='flex space-x-8 pt-4 lg:pt-0'>
-              <Link href={'https://facebook.com'} target='_blank'>
-                <Facebook className='text-4xl' />
-              </Link>
-              <Link href={'https://twitter.com'} target='_blank'>
-                <Twitter className='text-4xl' />
-              </Link>
-              <Link href={'https://instagram.com'} target='_blank'>
-                <Instagram className='text-4xl' />
-              </Link>
-            </div>
-          </div>
+          <FollowUs />
         </div>
         <MyForm />
       </div>
