@@ -1,45 +1,20 @@
 import Head from 'next/head';
 import React from 'react';
 import Navbar from '../components/Navbar';
-
 import { useRouter } from 'next/router';
 import CarWidget from '../components/CarWidget';
 import getCars from '../lib/cars';
 import type { Car } from '../types';
 import WhatsAppChatButton from '../components/WhatsAppChatButton';
 import Technologies from '../components/Technologies';
+import MapContainer from '../components/MapContainer';
 import Header from '../components/Header';
 import CarImageSlider from '../components/CarImageSlider';
 import { Button } from '@mui/material';
 import SendEmail from '../components/SendEmail';
 import Features from '../components/Features';
-import Map, { GeolocateControl } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-const MAPBOX_TOKEN =
-  'pk.eyJ1IjoieXZ6ZnRoIiwiYSI6ImNsYzFqejN1cDA4YWUzb3FmMGpueGJpN24ifQ.tPrj83XRd3foPvh8mpUJbw';
-function MyMap() {
-  return (
-    <div className='w-full h-[30rem] '>
-      <Map
-        mapboxAccessToken='MAPBOX_TOKEN'
-        initialViewState={{
-          longitude: -100,
-          latitude: 40,
-          zoom: 12,
-        }}
-        mapStyle='mapbox://styles/yvzfth/ckzshkwjv000k14ngydzgk1ck'
-      >
-        {/* <GeolocateControl
-          positionOptions={{ enableHighAccuracy: true }}
-          trackUserLocation={true}
-        /> */}
-      </Map>
-    </div>
-  );
-}
-
-// import {Star} from "react-feather"
 export const RentingPage = () => {
   const router = useRouter();
   const { make } = router.query;
@@ -91,7 +66,10 @@ export const RentingPage = () => {
             bgImageUrl={selectedCar.imageUrl}
           />
           <Features features={selectedCar.features} />
-          <MyMap />
+
+          <div className='w-full h-[30rem]'>
+            <MapContainer />
+          </div>
           {/* <div className='flex justify-between mt-8'>
             <Button
               variant='contained'
