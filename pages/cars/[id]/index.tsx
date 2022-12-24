@@ -26,7 +26,7 @@ const Car = () => {
   useEffect(() => {
     const foundCar = getCars().find((car) => car.id === Number(id))!;
     setCar(foundCar);
-  }, [setCar]);
+  }, [id]);
 
   const [logedIn, setLogedIn] = React.useState<true | false>(false);
 
