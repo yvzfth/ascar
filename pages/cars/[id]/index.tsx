@@ -41,11 +41,11 @@ const Car = () => {
 
         <div>
           <Header
-            make={car!.make}
-            model={car!.model}
-            year={car!.year}
-            fuelType={car!.fuelType}
-            transmission={car!.transmission}
+            make={car!?.make}
+            model={car!?.model}
+            year={car!?.year}
+            fuelType={car!?.fuelType}
+            transmission={car!?.transmission}
           />
           <div className='mb-4'>
             <CarImageSlider
@@ -54,29 +54,29 @@ const Car = () => {
           </div>
           <div className='py-4'>
             <div className='text-red-500 text-3xl font-extrabold'>
-              {car!.price}₺
+              {car!?.price}₺
             </div>
             <div>{logedIn ? '⭐️' : '☆'} Favorilerine ekle</div>
           </div>
           <div className='bg-white rounded-lg shadow-md p-4 dark:text-black'>
             <h2 className='text-xl font-bold mb-2'>Engine</h2>
-            <p>{car!.engine}</p>
+            <p>{car!?.engine}</p>
             <h2 className='text-xl font-bold mt-2 mb-2'>Transmission</h2>
-            <p>{car!.transmission}</p>
+            <p>{car!?.transmission}</p>
             <h2 className='text-xl font-bold mt-2 mb-2'>Fuel Type</h2>
-            <p>{car!.fuelType}</p>
+            <p>{car!?.fuelType}</p>
             <h2 className='text-xl font-bold mt-2 mb-2'>Color</h2>
-            <p>{car!.color}</p>
+            <p>{car!?.color}</p>
             <h2 className='text-xl font-bold mt-2 mb-2'>Mileage</h2>
-            <p>{car!.mileage}</p>
+            <p>{car!?.mileage}</p>
             <h2 className='text-xl font-bold mt-2 mb-2'>Price</h2>
-            <p>${car!.price}</p>
+            <p>${car!?.price}</p>
           </div>
           <Technologies
-            technologies={car!.technologies}
-            bgImageUrl={car!.imageUrl}
+            technologies={car!?.technologies}
+            bgImageUrl={car!?.imageUrl}
           />
-          <Features features={car!.features} />
+          <Features features={car!?.features} />
 
           <div className='w-full h-[30rem]'>
             <MapContainer />
