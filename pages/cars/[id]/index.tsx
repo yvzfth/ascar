@@ -20,9 +20,11 @@ const Car = () => {
   const router = useRouter();
   const { id } = router.query;
   console.log(id);
-  const [car, setCar] = useState<Car | null>(null);
+  const [car, setCar] = useState<Car>(
+    getCars().find((car) => car.id === Number(id))!
+  );
   const foundCar = getCars().find((car) => car.id === Number(id))!;
-  if (foundCar) setCar(foundCar);
+  if (foundCar && !car) setCar(foundCar);
   const [logedIn, setLogedIn] = React.useState<true | false>(false);
 
   return (
