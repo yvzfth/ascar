@@ -16,7 +16,7 @@ function SendEmail() {
   };
 
   return (
-    <Card className='w-[20rem] lg:w-[30rem] bg-transparent dark:text-white p-8 bg-[#FFE6F2] rounded-lg '>
+    <Card className='w-[20rem] md:w-[30rem] bg-transparent dark:text-white p-8 bg-[#FFE6F2] rounded-lg '>
       <form
         className='flex flex-col space-y-4'
         action='mailto:yvzfth@yandex.com'

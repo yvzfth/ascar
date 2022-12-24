@@ -5,7 +5,8 @@ import Navbar from '../components/Navbar';
 import Head from 'next/head';
 import FollowUs from '../components/FollowUs';
 import SendEmail from '../components/SendEmail';
-
+import MapContainer from '../components/MapContainer';
+import Footer from '../components/Footer';
 const contact = () => {
   return (
     <div className='h-screen pb-8'>
@@ -52,6 +53,10 @@ const contact = () => {
         </div>
         <SendEmail />
       </div>
+      <div className='w-full h-[25rem] p-4 pb-10'>
+        <MapContainer />
+      </div>
+      <Footer />
     </div>
   );
 };
