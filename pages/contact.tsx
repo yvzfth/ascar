@@ -1,108 +1,11 @@
-import {
-  Button,
-  Card,
-  TextareaAutosize,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Typography } from '@mui/material';
 import MailOutline from '@mui/icons-material/MailOutline';
-import Twitter from '@mui/icons-material/Twitter';
-import Instagram from '@mui/icons-material/Instagram';
-import Facebook from '@mui/icons-material/Facebook';
 import React from 'react';
 import Navbar from '../components/Navbar';
-import { useState } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 import FollowUs from '../components/FollowUs';
+import SendEmail from '../components/SendEmail';
 
-interface state {
-  name: string;
-  email: string;
-  message: string;
-  phone: string;
-}
-
-function MyForm() {
-  const [inputs, setInputs] = useState({} as state);
-
-  const handleChange = (event: any) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
-  };
-
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-    alert(JSON.stringify(inputs));
-  };
-  // const [textarea, setTextarea] = useState(
-  //   'The content of a textarea goes in the value attribute'
-  // );
-
-  // const handleChange = (event: any) => {
-  //   setTextarea(event.target.value);
-  // };
-
-  return (
-    <Card className='w-[20rem] lg:w-[30rem] bg-transparent dark:text-white p-8 bg-[#FFE6F2] rounded-lg '>
-      <form
-        className='flex flex-col space-y-4'
-        // onSubmit={handleSubmit}
-        action='mailto:yvzfth@yandex.com'
-        method='post'
-        encType='text/plain'
-      >
-        <div className='flex flex-col lg:flex-row gap-4 '>
-          <div>
-            <input
-              className='w-full dark:text-gray-200 bg-[rgb(247,247,247)] p-4 rounded-lg dark:bg-[-webkit-control-background]'
-              placeholder='İsim'
-              type='text'
-              name='name'
-              value={inputs.name || ''}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <input
-              className='w-full dark:text-gray-200 bg-[rgb(247,247,247)] p-4 rounded-lg dark:bg-[-webkit-control-background]'
-              placeholder='Email'
-              type={'email'}
-              name='email'
-              value={inputs.email || ''}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <input
-              className='w-full dark:text-gray-200 bg-[rgb(247,247,247)] p-4 rounded-lg dark:bg-[-webkit-control-background]'
-              placeholder='Telefon'
-              type={'tel'}
-              name='phone'
-              value={inputs.phone || ''}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-
-        <div>
-          <textarea
-            className='w-full dark:text-gray-200 bg-[rgb(247,247,247)] p-4 rounded-lg dark:bg-[-webkit-control-background] h-[8rem] lg:h-[12rem]'
-            name='message'
-            onChange={handleChange}
-            aria-label='minimum height'
-            placeholder='Mesajınız'
-            style={{ width: 200 }}
-          />
-        </div>
-        <Button variant='contained' color='error' type='submit'>
-          Gönder
-        </Button>
-      </form>
-    </Card>
-  );
-}
 const contact = () => {
   return (
     <div className='h-screen pb-8'>
@@ -147,7 +50,7 @@ const contact = () => {
           </div>
           <FollowUs />
         </div>
-        <MyForm />
+        <SendEmail />
       </div>
     </div>
   );

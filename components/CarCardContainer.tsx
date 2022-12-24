@@ -2,8 +2,11 @@ import { Button, Typography } from '@mui/material';
 import React from 'react';
 import CarCard from './CarCard';
 import FollowUs from './FollowUs';
+import getCars from '../lib/cars';
+import CarWidget from './CarWidget';
 
 const CarCardContainer = () => {
+  const cars = getCars();
   return (
     <div>
       <div className='text-center '>
@@ -11,8 +14,8 @@ const CarCardContainer = () => {
           Öne Çıkan Araçlar
         </Typography>
       </div>
-      <div className='[&>:last-child]:h-[40rem] [&>:last-child]:text-4xl [&>:last-child]:w-[40rem] flex items-center justify-between w-full px-20 py-10 gap-10 flex-col lg:flex-row '>
-        <p className='w-10 h-10'>sdasfasf</p>
+      {/*  [&>:first-child]:h-[40rem] [&>:first-child]:w-[40rem]  */}
+      <div className='flex items-center justify-between w-full px-20 py-10 gap-10 flex-col lg:flex-row '>
         <CarCard
           image={'/car1.jpeg'}
           title={'Title'}
@@ -45,6 +48,18 @@ const CarCardContainer = () => {
           gear={'Manuel'}
           fuelType={'Diesel'}
         />
+        {/* <CarWidget
+          car={{
+            make: 'BMW',
+            model: 'i8',
+            year: 2022,
+            price: 600000,
+            imageUrl: '/car1.jpeg',
+          }}
+        /> */}
+        {cars.map((car, index) => (
+          <CarWidget car={car} />
+        ))}
       </div>
       <div className='flex flex-col lg:flex-row justify-between items-center px-20 py-10'>
         <FollowUs />
