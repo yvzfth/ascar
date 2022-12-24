@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../../../components/Navbar';
 import { useRouter } from 'next/router';
 import getCars from '../../../lib/cars';
@@ -23,8 +23,11 @@ const Car = () => {
   const [car, setCar] = useState<Car>(
     getCars().find((car) => car.id === Number(id))!
   );
-  const foundCar = getCars().find((car) => car.id === Number(id))!;
-  if (foundCar && !car) setCar(foundCar);
+  useEffect(() => {
+    const foundCar = getCars().find((car) => car.id === Number(id))!;
+    setCar(foundCar);
+  }, [setCar]);
+
   const [logedIn, setLogedIn] = React.useState<true | false>(false);
 
   return (
