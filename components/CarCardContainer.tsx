@@ -58,7 +58,7 @@ const CarCardContainer = () => {
           }}
         /> */}
         {cars.map((car, index) => (
-          <CarWidget car={car} />
+          <CarWidget key={index} car={car} />
         ))}
       </div>
       <div className='flex flex-col lg:flex-row justify-between items-center px-20 py-10'>
