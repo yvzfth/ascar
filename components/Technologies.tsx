@@ -19,7 +19,7 @@ const Technologies = ({ technologies, bgImageUrl }: TechnologiesProps) => {
           <h3 className='text-2xl font-bold leading-5 '>Technologies</h3>
         </div>
         <ul>
-          {technologies.map((technology, index) => (
+          {technologies?.map((technology, index) => (
             <li key={index} className='border-t border-gray-200'>
               <div className='flex items-center px-4 py-4 sm:px-6'>
                 <div className='min-w-0 flex-1 flex items-center'>

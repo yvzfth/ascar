@@ -20,13 +20,7 @@ const Car = () => {
   const router = useRouter();
   const { id } = router.query;
   console.log(id);
-  const [car, setCar] = useState<Car>(
-    getCars().find((car) => car.id === Number(id))!
-  );
-  useEffect(() => {
-    const foundCar = getCars().find((car) => car.id === Number(id))!;
-    setCar(foundCar);
-  }, [id]);
+  const car = getCars().find((car) => car.id === Number(id))!;
 
   const [logedIn, setLogedIn] = React.useState<true | false>(false);
 
