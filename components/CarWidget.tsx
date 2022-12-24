@@ -7,7 +7,7 @@ interface CarWidgetProps {
 
 export const CarWidget: React.FC<CarWidgetProps> = ({ car }) => {
   return (
-    <div className='bg-gray-100 border-gray-300 rounded-lg shadow-md w-320'>
+    <div className='bg-gray-100 border-gray-300 rounded-lg shadow-md w-[20rem] min-w-[20rem]'>
       <Image
         src={car.imageUrl}
         alt={`${car.make} ${car.model}`}

@@ -1,8 +1,9 @@
 import Head from 'next/head';
 import React from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../../components/Navbar';
+import AllCars from '../../components/AllCars';
 
-const gallery = () => {
+const Cars = () => {
   return (
     <div className='h-screen'>
       <Head>
@@ -12,9 +13,9 @@ const gallery = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Navbar />
-      Araçlar
+      <AllCars />
     </div>
   );
 };
 
-export default gallery;
+export default Cars;

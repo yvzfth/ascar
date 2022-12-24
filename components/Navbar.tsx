@@ -19,20 +19,17 @@ import Button from '@mui/material/Button';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 
-const options = ['KİRALA', 'SATIN AL', 'ARAÇLARIMIZ', 'İLETİŞİM'];
+const options = ['ARAÇLAR', 'HAKKIMIZDA', 'İLETİŞİM'];
 
 const getClickedTabPath = (option: string): string => {
-  let path = '/';
   if (option === 'İLETİŞİM') {
-    path = '/contact';
-  } else if (option === 'KİRALA') {
-    path = '/rent';
-  } else if (option === 'SATIN AL') {
-    path = '/buy';
-  } else if (option === 'ARAÇLARIMIZ') {
-    path = '/gallery';
+    return '/contact';
+  } else if (option === 'HAKKIMIZDA') {
+    return '/about';
+  } else if (option === 'ARAÇLAR') {
+    return '/cars';
   }
-  return path;
+  return '/';
 };
 
 export function AccountMenu() {
