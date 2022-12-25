@@ -28,7 +28,7 @@ const Login = () => {
   };
   return (
     <div className='flex h-screen w-screen relative items-center justify-center'>
-      <Image alt='bg' src={'/aurora.jpg'} layout='fill' objectFit='cover' />
+      <Image alt='bg' src={'/bg.jpg'} layout='fill' objectFit='cover' />
       <div
         className='flex items-center justify-center rounded-lg bg-opacity-80
         border border-gray-600 bg-transparent transition ease-out hover:bg-opacity-100
