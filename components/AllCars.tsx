@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import type { Car } from '../types';
 import getCars from '../lib/cars';
@@ -10,7 +9,6 @@ const AllCars = () => {
   const [selectedMake, setSelectedMake] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
   const [filteredCars, setFilteredCars] = useState<Car[]>([]);
-  const router = useRouter();
   const cars: Car[] = useMemo(() => getCars(), []);
 
   useEffect(() => {
@@ -82,7 +80,7 @@ const AllCars = () => {
       </div>
       <div className='flex flex-wrap p-20 gap-8 items-center justify-center w-full'>
         {filteredCars.map((car) => (
-          <div key={car.id} onClick={() => router.push(`/cars/${car.id}`)}>
+          <div key={car.id}>
             <CarCard car={car} />
           </div>
         ))}

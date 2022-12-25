@@ -5,14 +5,9 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    fontFamily: {},
   },
 
   plugins: [],
   important: true,
-  variants: {
-    height: ['responsive', 'hover', 'first'],
-    widtht: ['responsive', 'hover', 'first'],
-    background: ['responsive', 'hover', 'first'],
-  },
 };

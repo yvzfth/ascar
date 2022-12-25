@@ -64,15 +64,16 @@ export default function NavbarLinks({
         >
           {options.map((option) => {
             return (
-              <MenuItem
-                key={option}
-                selected={
-                  getClickedTabPath(option) === window.location.pathname
-                }
-                onClick={handleClose}
-              >
-                <Link href={getClickedTabPath(option)}>{option}</Link>
-              </MenuItem>
+              <Link key={option} href={getClickedTabPath(option)}>
+                <MenuItem
+                  selected={
+                    getClickedTabPath(option) === window.location.pathname
+                  }
+                  onClick={handleClose}
+                >
+                  {option}
+                </MenuItem>
+              </Link>
             );
           })}
         </Menu>
@@ -83,15 +84,15 @@ export default function NavbarLinks({
             getClickedTabPath(option) === window.location.pathname;
           if (currentPage)
             return (
-              <Button key={option} color='inherit'>
-                <Link href={getClickedTabPath(option)}>{option}</Link>
-              </Button>
+              <Link key={option} href={getClickedTabPath(option)}>
+                <Button color='inherit'>{option}</Button>
+              </Link>
             );
           else
             return (
-              <Button key={option} color='error'>
-                <Link href={getClickedTabPath(option)}>{option}</Link>
-              </Button>
+              <Link key={option} href={getClickedTabPath(option)}>
+                <Button color='error'>{option}</Button>
+              </Link>
             );
         })}
       </div>

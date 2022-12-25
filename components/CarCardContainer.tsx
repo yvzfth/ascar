@@ -3,7 +3,6 @@ import React from 'react';
 import CarCard from './CarCard';
 import FollowUs from './FollowUs';
 import getCars from '../lib/cars';
-import CarWidget from './CarWidget';
 
 const CarCardContainer = () => {
   const cars = getCars();
@@ -20,10 +19,10 @@ const CarCardContainer = () => {
           <CarCard key={index} car={car} />
         ))}
       </div>
-      <div className='flex flex-col lg:flex-row justify-between items-center px-20 py-10'>
+      <div className='flex flex-col lg:flex-row justify-between items-center px-20 py-10 space-y-8'>
         <FollowUs />
         <Button className='dark:text-white' color='error' variant='contained'>
-          %Sayı% Aracı görüntüle
+          {cars.length} Aracı görüntüle
         </Button>
       </div>
     </div>
