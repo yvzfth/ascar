@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useState } from 'react';
 
 interface CarImageSliderTypes {
@@ -23,7 +24,7 @@ const CarImageSlider = ({ imageUrls }: CarImageSliderTypes) => {
     <div className='relative w-full h-64 overflow-hidden bg-gray-700 rounded-md shadow-md'>
       <button
         onClick={handlePreviousClick}
-        className='absolute top-0 left-0 w-12 h-full rounded-l-md text-3xl font-bold text-white'
+        className='absolute top-0 left-0 w-1/2 p-4 h-full rounded-l-md text-3xl font-bold text-white z-10'
       >
         <svg
           className='w-6 h-6'
@@ -42,7 +43,7 @@ const CarImageSlider = ({ imageUrls }: CarImageSliderTypes) => {
       </button>
       <button
         onClick={handleNextClick}
-        className='absolute top-0 right-0 w-12 h-full rounded-r-md text-3xl font-bold text-white'
+        className='absolute top-0 right-0 w-1/2 justify-end flex items-center p-4 h-full rounded-r-md text-3xl font-bold text-white z-10'
       >
         <svg
           className='w-6 h-6'
@@ -59,11 +60,8 @@ const CarImageSlider = ({ imageUrls }: CarImageSliderTypes) => {
           />
         </svg>
       </button>
-      <img
-        src={imageUrls[currentIndex]}
-        alt='Car'
-        className='w-full h-full object-cover'
-      />
+
+      <Image src={imageUrls[currentIndex]} alt='Car' fill />
     </div>
   );
 };

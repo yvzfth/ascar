@@ -1,5 +1,6 @@
 import React from 'react';
 import CheckCircle from '@mui/icons-material/CheckCircle';
+import Image from 'next/image';
 
 type TechnologiesProps = {
   technologies: string[];
@@ -9,11 +10,14 @@ type TechnologiesProps = {
 const Technologies = ({ technologies, bgImageUrl }: TechnologiesProps) => {
   return (
     <div className='relative bg-gray-200 rounded-lg shadow-lg overflow-hidden'>
-      <img
-        src={bgImageUrl}
-        alt=''
-        className='w-full h-64 object-cover object-center'
-      />
+      <div className='relative h-64'>
+        <Image
+          src={bgImageUrl}
+          alt=''
+          fill
+          className='w-full  object-cover object-center'
+        />
+      </div>
       <div className='relative px-4 '>
         <div className='bg-transparent px-4 py-5 sm:px-6 '>
           <h3 className='text-2xl font-bold leading-5 '>Technologies</h3>

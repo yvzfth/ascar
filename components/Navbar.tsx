@@ -67,9 +67,10 @@ export function AccountMenu() {
           variant='outlined'
           color='error'
           className={nunito.className + ' capitalize text-lg text-gray-100'}
-          children={'Login'}
           endIcon={<Login />}
-        />
+        >
+          Login
+        </Button>
       </Link>
     );
   return (

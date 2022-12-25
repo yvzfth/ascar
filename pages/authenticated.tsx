@@ -32,10 +32,11 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   }
 };
 
-export default (
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
-) => (
-  <div>
-    <p>{props.message}</p>
-  </div>
-);
+const Authenticated =
+  () => (props: InferGetServerSidePropsType<typeof getServerSideProps>) =>
+    (
+      <div>
+        <p>{props.message}</p>
+      </div>
+    );
+export default Authenticated;
