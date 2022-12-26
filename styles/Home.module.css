@@ -116,7 +116,7 @@
   width: 75px;
   /* height: 40px; */
   padding: 16px 10px;
-  margin-left: 16px;
+  /* margin-left: 16px; */
   transform: translateZ(0);
   border-radius: var(--border-radius);
   overflow: hidden;

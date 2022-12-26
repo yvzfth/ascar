@@ -15,15 +15,19 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import { UserContext, useAuth } from '../context';
 import Image from 'next/image';
 import firebaseClient from '../firebaseClient';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { useRouter } from 'next/router';
-const options = ['ARAÇLAR', 'HAKKIMIZDA', 'İLETİŞİM'];
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
+const options = ['ARAÇLAR', 'HAKKIMIZDA', 'İLETİŞİM'];
+interface NavbarLinksProps {
+  options: string[];
+  getClickedTabPath: (option: string) => string;
+}
 const getClickedTabPath = (option: string): string => {
   if (option === 'İLETİŞİM') {
     return '/contact';
@@ -36,6 +40,98 @@ const getClickedTabPath = (option: string): string => {
 };
 const nunito = Nunito({ subsets: ['latin'] });
 const cinzel = Cinzel({ subsets: ['latin'] });
+
+const ITEM_HEIGHT = 48;
+
+const isBrowser = () => typeof window !== 'undefined'; //The approach recommended by Next.js
+
+function NavbarLinks({ options, getClickedTabPath }: NavbarLinksProps) {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [pathname, setPathname] = React.useState<null | string>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    var element = document.getElementById('vert-dots');
+    if (element) {
+      element.style.rotate = '90deg';
+      element.style.transition = ' .5s ease-out';
+    }
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    var element = document.getElementById('vert-dots');
+    if (element) {
+      element.style.rotate = '0deg';
+      element.style.transition = ' .5s ease-out';
+    }
+    setAnchorEl(null);
+  };
+  React.useEffect(() => {
+    if (isBrowser()) setPathname(window.location.pathname);
+  }, [setPathname]);
+  return (
+    <>
+      <div className='lg:hidden'>
+        <IconButton
+          aria-label='more'
+          id='long-button'
+          aria-controls={open ? 'long-menu' : undefined}
+          aria-expanded={open ? 'true' : undefined}
+          aria-haspopup='true'
+          onClick={handleClick}
+          color='error'
+        >
+          <MoreVertIcon id='vert-dots' className='text-4xl' />
+        </IconButton>
+        <Menu
+          id='long-menu'
+          MenuListProps={{
+            'aria-labelledby': 'long-button',
+          }}
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          PaperProps={{
+            style: {
+              maxHeight: ITEM_HEIGHT * 4.5,
+              width: '20ch',
+            },
+          }}
+        >
+          {options.map((option) => {
+            return (
+              <Link key={option} href={getClickedTabPath(option)}>
+                <MenuItem
+                  selected={getClickedTabPath(option) === pathname}
+                  onClick={handleClose}
+                >
+                  {option}
+                </MenuItem>
+              </Link>
+            );
+          })}
+        </Menu>
+      </div>
+      <div className='max-lg:hidden space-x-4'>
+        {options.map((option) => {
+          let currentPage = getClickedTabPath(option) === pathname;
+          if (currentPage)
+            return (
+              <Link key={option} href={getClickedTabPath(option)}>
+                <Button color='inherit'>{option}</Button>
+              </Link>
+            );
+          else
+            return (
+              <Link key={option} href={getClickedTabPath(option)}>
+                <Button color='error'>{option}</Button>
+              </Link>
+            );
+        })}
+      </div>
+    </>
+  );
+}
+
 export function AccountMenu() {
   const { user, setUser } = useAuth();
   const router = useRouter();
@@ -62,16 +158,30 @@ export function AccountMenu() {
 
   if (user === null)
     return (
-      <Link href={'/login'}>
-        <Button
-          variant='outlined'
-          color='error'
-          className={nunito.className + ' capitalize text-lg text-gray-100'}
-          endIcon={<Login />}
-        >
-          Login
-        </Button>
-      </Link>
+      <div>
+        <Link href={'/login'} className='hidden md:block'>
+          <Button
+            variant='outlined'
+            color='error'
+            className={nunito.className + ' capitalize text-md text-gray-100'}
+            endIcon={<Login />}
+          >
+            Login
+          </Button>
+        </Link>
+        <Link href={'/login'} className='md:hidden'>
+          <Button
+            variant='outlined'
+            color='error'
+            className={
+              nunito.className +
+              ' text-gray-100 px-0 py-2 w-10 max-w-[52px] min-w-[52px] '
+            }
+          >
+            <Login className='m-0 p-0' />
+          </Button>
+        </Link>
+      </div>
     );
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -172,13 +282,10 @@ export function AccountMenu() {
 }
 
 const Navbar = () => {
-  const NavbarLinks = dynamic(() => import('./NavbarLinks'), {
-    ssr: false,
-  });
   return (
     <div
       className={
-        'flex p-4 w-screen items-center justify-center  md:px-6 lg:px-8 xl:px-12 gap-24 md:gap-48 lg:gap-28 xl:gap-48'
+        'flex py-4 px-8 w-screen items-center justify-between  md:px-20 '
       }
     >
       <div className='max-lg:hidden'>

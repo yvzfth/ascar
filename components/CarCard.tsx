@@ -14,7 +14,12 @@ export default function CarCard({ car }: { car: Car }) {
       onClick={() => router.push(`/cars/${car.id}`)}
     >
       <div className=' relative  w-full h-44'>
-        <Image src={car.imageUrl} alt='car-image' fill={true} />
+        <Image
+          className='rounded-t-xl '
+          src={car.imageUrl}
+          alt='car-image'
+          fill={true}
+        />
       </div>
       <div className={' bg-[rgb(26,29,38)] px-4 text-white '}>
         <div className='px-4 py-2 '>
