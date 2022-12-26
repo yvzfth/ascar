@@ -7,7 +7,7 @@ import Hero from '../components/Hero';
 import CarCardContainer from '../components/CarCardContainer';
 import PopularMakes from '../components/PopularMakes';
 import Footer from '../components/Footer';
-import { useAuth, UserContext } from '../context';
+import { useAuth, UserContext } from '../context/user';
 function Home() {
   const { user, setUser } = useAuth();
   return (

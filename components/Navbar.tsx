@@ -15,7 +15,7 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
-import { UserContext, useAuth } from '../context';
+import { useAuth } from '../context/auth';
 import Image from 'next/image';
 import firebaseClient from '../firebaseClient';
 import firebase from 'firebase/compat/app';
@@ -53,7 +53,7 @@ function NavbarLinks({ options, getClickedTabPath }: NavbarLinksProps) {
     var element = document.getElementById('vert-dots');
     if (element) {
       element.style.rotate = '90deg';
-      element.style.transition = ' .5s ease-out';
+      element.style.transition = ' .3s ease-out';
     }
     setAnchorEl(event.currentTarget);
   };
@@ -151,8 +151,6 @@ export function AccountMenu() {
       .signOut()
       .then(function (result) {
         setUser(null);
-
-        router.push('/');
       });
   };
 
@@ -184,100 +182,104 @@ export function AccountMenu() {
       </div>
     );
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      <React.Fragment>
-        <Box
-          sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}
-        >
-          {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography> */}
+    <React.Fragment>
+      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+        {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography> */}
 
-          <Tooltip title='Account settings'>
-            <IconButton
-              className='ml-2'
-              onClick={handleClick}
-              size='small'
-              aria-controls={open ? 'account-menu' : undefined}
-              aria-haspopup='true'
-              aria-expanded={open ? 'true' : undefined}
-            >
-              <Avatar className='bg-red-500' sx={{ width: 32, height: 32 }}>
+        <Tooltip title='Account settings'>
+          <IconButton
+            className='ml-2'
+            onClick={handleClick}
+            size='small'
+            aria-controls={open ? 'account-menu' : undefined}
+            aria-haspopup='true'
+            aria-expanded={open ? 'true' : undefined}
+          >
+            <Avatar className='bg-red-500' sx={{ width: 32, height: 32 }}>
+              {user?.photoURL ? (
                 <Image
-                  src={user.photoUrl}
+                  src={String(user?.photoURL)}
                   width={32}
                   height={32}
                   alt={'userImg'}
                 />
-              </Avatar>
-            </IconButton>
-          </Tooltip>
-        </Box>
-        <Menu
-          className='ml-0'
-          anchorEl={anchorEl}
-          id='account-menu'
-          open={open}
-          onClose={handleClose}
-          onClick={handleClose}
-          marginThreshold={0}
-          PaperProps={{
-            elevation: 0,
-            sx: {
-              overflow: 'visible',
-              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-              mt: 1.5,
-              '& .MuiAvatar-root': {
-                width: 32,
-                height: 32,
-                ml: -0.5,
-                mr: 1,
-              },
-
-              '&:before': {
-                content: '""',
-                display: 'block',
-                position: 'absolute',
-                top: 0,
-                right: 16,
-                width: 10,
-                height: 10,
-                bgcolor: 'background.paper',
-                transform: 'translateY(-50%) rotate(45deg)',
-                zIndex: 0,
-              },
+              ) : (
+                user?.displayName?.charAt(0) ?? 'A'
+              )}
+            </Avatar>
+          </IconButton>
+        </Tooltip>
+      </Box>
+      <Menu
+        className='ml-0'
+        anchorEl={anchorEl}
+        id='account-menu'
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        marginThreshold={0}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            mt: 1.5,
+            '& .MuiAvatar-root': {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
             },
-          }}
-          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        >
-          <MenuItem>
-            <Avatar>
+
+            '&:before': {
+              content: '""',
+              display: 'block',
+              position: 'absolute',
+              top: 0,
+              right: 16,
+              width: 10,
+              height: 10,
+              bgcolor: 'background.paper',
+              transform: 'translateY(-50%) rotate(45deg)',
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        <MenuItem>
+          <Avatar>
+            {user?.photoURL ? (
               <Image
-                src={user.photoUrl}
+                src={String(user?.photoURL)}
                 width={32}
                 height={32}
                 alt={'userImg'}
               />
-            </Avatar>{' '}
-            {user.name}
-          </MenuItem>
+            ) : (
+              user?.displayName?.charAt(0) ?? 'A'
+            )}
+          </Avatar>{' '}
+          {user.displayName}
+        </MenuItem>
 
-          <Divider />
+        <Divider />
 
-          <MenuItem>
-            <ListItemIcon>
-              <Settings fontSize='small' />
-            </ListItemIcon>
-            Settings
-          </MenuItem>
-          <MenuItem onClick={logout}>
-            <ListItemIcon>
-              <Logout fontSize='small' />
-            </ListItemIcon>
-            Logout
-          </MenuItem>
-        </Menu>
-      </React.Fragment>
-    </UserContext.Provider>
+        <MenuItem>
+          <ListItemIcon>
+            <Settings fontSize='small' />
+          </ListItemIcon>
+          Settings
+        </MenuItem>
+        <MenuItem onClick={logout}>
+          <ListItemIcon>
+            <Logout fontSize='small' />
+          </ListItemIcon>
+          Logout
+        </MenuItem>
+      </Menu>
+    </React.Fragment>
   );
 }
 
@@ -285,7 +287,7 @@ const Navbar = () => {
   return (
     <div
       className={
-        'flex py-4 px-8 w-screen items-center justify-between  md:px-20 '
+        'backdrop-blur-3xl top-0 left-0 z-50 sticky flex py-4 px-8 w-screen items-center justify-between  md:px-20 '
       }
     >
       <div className='max-lg:hidden'>

@@ -24,7 +24,7 @@ const AllCars = () => {
 
   return (
     <div className='flex flex-col justify-center w-full items-center'>
-      <div className='flex flex-col space-y-4 px-12 max-w-[50rem]  min-w-[20rem]'>
+      <div className='flex flex-col space-y-4 px-12 w-2/3 mx-auto max-w-4xl'>
         <div className='relative rounded-md shadow-sm '>
           <input
             id='search'
@@ -51,7 +51,7 @@ const AllCars = () => {
           <select
             value={selectedMake}
             className={
-              'py-2 pl-10 block w-1/2 leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5'
+              'py-2 pl-10 w-1/2 leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5'
             }
             onChange={(e) => setSelectedMake(e.target.value)}
           >
@@ -65,7 +65,7 @@ const AllCars = () => {
           <select
             value={selectedYear}
             className={
-              'py-2 pl-10 block w-1/2 leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5'
+              'py-2 pl-10 w-1/2 leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5'
             }
             onChange={(e) => setSelectedYear(e.target.value)}
           >

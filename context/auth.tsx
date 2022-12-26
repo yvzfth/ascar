@@ -1,10 +1,23 @@
 import nookies from 'nookies';
-import React, { useState, useEffect, createContext, useContext } from 'react';
-import firebaseClient from './firebaseClient';
+import React, {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  Dispatch,
+  SetStateAction,
+} from 'react';
+import firebaseClient from '../firebaseClient';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-const AuthContext = createContext<{ user: firebase.User | null }>({
+
+interface AuthContext {
+  user: firebase.User | null;
+  setUser: Dispatch<SetStateAction<firebase.User | null>>;
+}
+export const AuthContext = createContext<AuthContext>({
   user: null,
+  setUser: () => {},
 });
 
 export function AuthProvider({ children }: any) {
@@ -37,7 +50,9 @@ export function AuthProvider({ children }: any) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, setUser }}>
+      {children}
+    </AuthContext.Provider>
   );
 }
 export const useAuth = () => {
