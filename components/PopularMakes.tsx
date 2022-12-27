@@ -19,8 +19,8 @@ const CarsByMake = ({ cars }: { cars: Car[] }) => {
   }, [selectedMake, cars]);
 
   return (
-    <>
-      <div className='text-center text-4xl font-extrabold pb-8'>
+    <div className='bg-[#111111] pt-8 m-4 rounded-xl shadow  shadow-emerald-400'>
+      <div className='text-center text-4xl font-extrabold py-8'>
         Popular Makes
       </div>
 
@@ -54,13 +54,13 @@ const CarsByMake = ({ cars }: { cars: Car[] }) => {
           ))}
         </div>
 
-        <div className='flex items-center justify-center gap-4 w-full px-4 py-10  lg:flex-row overflow-x-scroll'>
+        <div className='flex items-center gap-4 w-full px-4 py-10  lg:flex-row overflow-x-scroll'>
           {filteredCars.map((car) => (
             <CarCard key={car.id} car={car} />
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

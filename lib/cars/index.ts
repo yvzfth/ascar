@@ -7,7 +7,7 @@ const getCars = (): Car[] => {
       make: 'Ford',
       model: 'Mustang',
       year: 2020,
-      price: 45000,
+      price: 450000,
       imageUrl: '/images/mustang.jpg',
       engine: '5.0L 8-Cylinder DOHC 32V',
       transmission: 'Automatic',

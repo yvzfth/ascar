@@ -1,27 +1,13 @@
 import React, { useRef, useState } from 'react';
 import Paper from '@mui/material/Paper';
-import Card from '@mui/material/Card';
 import { Button, Typography } from '@mui/material';
-import Box from '@mui/material/Box';
-
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import NativeSelect from '@mui/material/NativeSelect';
 import getCars from '../lib/cars';
 import { useRouter } from 'next/router';
-import { red } from '@mui/material/colors';
+
 const makes = new Set(getCars().map((car) => car.make));
-enum Prices {
-  OneHundredThousand = '100 bin ₺',
-  TwoHundredThousand = '100 bin ₺',
-  ThreeHundredThousand = '100 bin ₺',
-  FourHundredThousand = '100 bin ₺',
-  FiveHundredThousand = '100 bin ₺',
-  OneMillion = '1 milyon ₺',
-  OnePointFiveMillion = '1.5 milyon ₺',
-  TwoMillion = '2 milyon ₺',
-  Price = 'Fiyat',
-}
 
 const prices = {
   '100 bin ₺': '100000',
@@ -66,13 +52,13 @@ const Hero = () => {
     }
   };
   return (
-    <div className='w-full flex flex-col items-center lg:flex-row lg:justify-evenly'>
-      <Paper className='bg-transparent p-10 max-w-[20rem] lg:max-w-[26rem] shadow-sm shadow-red-400 m-10 '>
+    <div className='w-full flex flex-col items-center lg:flex-row lg:justify-evenly bg-hero bg-no-repeat bg-center bg-cover h-screen'>
+      <Paper className='bg-[#111] p-10 max-w-[20rem] lg:max-w-[26rem] shadow-sm shadow-red-400 m-10 '>
         <Typography className='text-black dark:text-white text-4xl lg:text-6xl font-bold'>
           Hayalindeki <br />
           arabayı bul
         </Typography>
-        <Typography className='text-gray-500 text-md lg:text-lg  pt-2'>
+        <Typography className='text-gray-500 text-sm  md:text-md lg:text-lg  pt-2'>
           Size en uygun arabayı bulmanıza yardımcı olacağız. Göz at, modelleri
           karşılaştır ve araban seni bekliyor.
         </Typography>
@@ -80,9 +66,9 @@ const Hero = () => {
       <Paper
         ref={paperRef}
         className=' max-w-[20rem] w-[20rem] lg:w-[26rem] lg:max-w-[26rem]
-        p-10 m-10 flex flex-col justify-center items-center 
-        shadow-sm shadow-gray-400
-        bg-transparent'
+        p-8 lg:p-10 m-10 flex flex-col justify-center items-center 
+        shadow-sm shadow-gray-200
+        bg-[#111]'
         //  shadow-slate-800 '
         // bg-[#1b24305a]'
         // bg-[#2B3A55]'

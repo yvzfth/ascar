@@ -287,7 +287,7 @@ const Navbar = () => {
   return (
     <div
       className={
-        'backdrop-blur-3xl top-0 left-0 z-50 sticky flex py-4 px-8 w-screen items-center justify-between  md:px-20 '
+        'sticky backdrop-blur-3xl top-0 left-0 z-50  flex py-4 px-8 w-screen items-center justify-between '
       }
     >
       <div className='max-lg:hidden'>

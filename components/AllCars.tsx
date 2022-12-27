@@ -28,12 +28,12 @@ const AllCars = () => {
   }, [searchQuery, selectedMake, selectedYear, cars]);
 
   return (
-    <div className='flex flex-col justify-center w-full items-center'>
-      <div className='flex flex-col space-y-4 px-12 w-2/3 mx-auto max-w-4xl'>
+    <div className='flex flex-col justify-center w-full items-center '>
+      <div className='flex flex-col md:flex-row md:items-center md:justify-center gap-4 p-4  m-4  bg-[#111111]  rounded-xl shadow  shadow-emerald-400'>
         <div className='relative rounded-md shadow-sm '>
           <input
             id='search'
-            className='form-input py-2 pl-10 block w-full leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5'
+            className='form-input py-2 pl-10 w-full leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm'
             placeholder='Search cars'
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -56,7 +56,7 @@ const AllCars = () => {
           <select
             value={selectedMake}
             className={
-              'py-2 pl-10 w-1/2 leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5'
+              'py-2 pl-2 w-1/2 leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5'
             }
             onChange={(e) => setSelectedMake(e.target.value)}
           >
@@ -70,7 +70,7 @@ const AllCars = () => {
           <select
             value={selectedYear}
             className={
-              'py-2 pl-10 w-1/2 leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5'
+              'py-2 pl-2 w-1/2 leading-5   rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5'
             }
             onChange={(e) => setSelectedYear(e.target.value)}
           >
@@ -83,7 +83,7 @@ const AllCars = () => {
           </select>
         </div>
       </div>
-      <div className='flex flex-wrap p-20 gap-8 items-center justify-center w-full'>
+      <div className='flex flex-wrap gap-8 items-center justify-center  bg-[#111111] p-8 m-4 rounded-xl shadow  shadow-emerald-400'>
         {filteredCars.map((car) => (
           <div key={car.id}>
             <CarCard car={car} />
