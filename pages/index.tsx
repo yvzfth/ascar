@@ -21,7 +21,7 @@ function Home() {
         <Hero />
         <div
           className={
-            ' relative -top-32 lg:-top-44 flex justify-center items-center'
+            ' relative -top-[8.8rem] lg:-top-44 flex justify-center items-center'
           }
         >
           <Image

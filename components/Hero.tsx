@@ -52,13 +52,22 @@ const Hero = () => {
     }
   };
   return (
-    <div className='w-full flex flex-col items-center lg:flex-row lg:justify-evenly bg-hero bg-no-repeat bg-center bg-cover h-screen'>
-      <Paper className='bg-[#111] p-10 max-w-[20rem] lg:max-w-[26rem] shadow-sm shadow-red-400 m-10 '>
-        <Typography className='text-black dark:text-white text-4xl lg:text-6xl font-bold'>
+    <div
+      className='w-full flex flex-col gap-4 items-center lg:pt-20 lg:items-start 
+     lg:flex-row lg:justify-evenly bg-hero bg-no-repeat bg-center bg-cover h-screen'
+    >
+      <Paper
+        className='
+      bg-transparent
+      backdrop-blur-md
+       p-10 lg:p-8  max-w-[20rem] lg:max-w-[26rem] 
+       shadow-sm shadow-red-400 m-8 text-center lg:text-left'
+      >
+        <Typography className='text-white text-4xl lg:text-6xl font-bold '>
           Hayalindeki <br />
           arabayı bul
         </Typography>
-        <Typography className='text-gray-500 text-sm  md:text-md lg:text-lg  pt-2'>
+        <Typography className='text-gray-300 text-sm  md:text-md lg:text-lg  pt-2'>
           Size en uygun arabayı bulmanıza yardımcı olacağız. Göz at, modelleri
           karşılaştır ve araban seni bekliyor.
         </Typography>
@@ -66,9 +75,9 @@ const Hero = () => {
       <Paper
         ref={paperRef}
         className=' max-w-[20rem] w-[20rem] lg:w-[26rem] lg:max-w-[26rem]
-        p-8 lg:p-10 m-10 flex flex-col justify-center items-center 
+        p-8 lg:p-10 m-8 flex flex-col justify-center items-center 
         shadow-sm shadow-gray-200
-        bg-[#111]'
+        bg-transparent backdrop-blur-md'
         //  shadow-slate-800 '
         // bg-[#1b24305a]'
         // bg-[#2B3A55]'
