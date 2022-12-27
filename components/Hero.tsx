@@ -53,7 +53,7 @@ const Hero = () => {
   };
   return (
     <div
-      className='w-full flex flex-col gap-4 items-center lg:pt-20 lg:items-start 
+      className='w-full flex flex-col items-center  lg:pt-20 lg:items-start 
      lg:flex-row lg:justify-evenly bg-hero bg-no-repeat bg-center bg-cover h-screen'
     >
       <Paper
@@ -61,13 +61,13 @@ const Hero = () => {
       bg-transparent
       backdrop-blur-md
        p-10 lg:p-8  max-w-[20rem] lg:max-w-[26rem] 
-       shadow-sm shadow-red-400 m-8 text-center lg:text-left'
+       shadow-sm shadow-red-400 mt-8 lg:m-8  text-center lg:text-left'
       >
         <Typography className='text-white text-4xl lg:text-6xl font-bold '>
           Hayalindeki <br />
           arabayı bul
         </Typography>
-        <Typography className='text-gray-300 text-sm  md:text-md lg:text-lg  pt-2'>
+        <Typography className='text-gray-300 text-sm  md:text-md lg:text-lg  pt-2 lg:pt-6'>
           Size en uygun arabayı bulmanıza yardımcı olacağız. Göz at, modelleri
           karşılaştır ve araban seni bekliyor.
         </Typography>
