@@ -3,21 +3,26 @@ import { useEffect, useMemo } from 'react';
 import type { Car } from '../types';
 import getCars from '../lib/cars';
 import CarCard from './CarCard';
+import { useRouter } from 'next/router';
 
 const AllCars = () => {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedMake, setSelectedMake] = useState('');
+  const [selectedMake, setSelectedMake] = useState(router.query?.make ?? '');
   const [selectedYear, setSelectedYear] = useState('');
   const [filteredCars, setFilteredCars] = useState<Car[]>([]);
   const cars: Car[] = useMemo(() => getCars(), []);
-
+  const minPrice = router.query?.minPrice || 0;
+  const maxPrice = router.query?.maxPrice || 100000000;
   useEffect(() => {
     setFilteredCars(
       cars.filter(
         (car) =>
           car.make.toLowerCase().includes(searchQuery.toLowerCase()) &&
           (selectedMake === '' || car.make === selectedMake) &&
-          (selectedYear === '' || car.year === parseInt(selectedYear))
+          (selectedYear === '' || car.year === parseInt(selectedYear)) &&
+          Number(minPrice) <= car.price &&
+          Number(maxPrice) >= car.price
       )
     );
   }, [searchQuery, selectedMake, selectedYear, cars]);
@@ -55,7 +60,7 @@ const AllCars = () => {
             }
             onChange={(e) => setSelectedMake(e.target.value)}
           >
-            <option value=''>All Makes</option>
+            <option value={''}>Tüm Markalar</option>
             {Array.from(new Set(cars.map((car) => car.make))).map((make) => (
               <option key={make} value={make}>
                 {make}
@@ -69,7 +74,7 @@ const AllCars = () => {
             }
             onChange={(e) => setSelectedYear(e.target.value)}
           >
-            <option value=''>All Years</option>
+            <option value={''}>Tüm Modeller</option>
             {Array.from(new Set(cars.map((car) => car.year))).map((year) => (
               <option key={year} value={year}>
                 {year}

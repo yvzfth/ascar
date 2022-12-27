@@ -24,7 +24,7 @@ const CarsByMake = ({ cars }: { cars: Car[] }) => {
         Popular Makes
       </div>
 
-      <div className='flex flex-col space-y-4 px-12 w-full'>
+      <div className='flex flex-col space-y-4 px-4 lg:px-12 w-full'>
         {/* <select
           value={selectedMake}
           className={
@@ -41,7 +41,7 @@ const CarsByMake = ({ cars }: { cars: Car[] }) => {
             )
           )}
         </select> */}
-        <div className='flex flex-row items-center justify-between  gap-4 px-12 w-full h-40 overflow-x-scroll'>
+        <div className='flex flex-row items-center justify-between  gap-4 px-4 lg:px-12 w-full h-40 overflow-x-scroll'>
           {Object.entries(carsByMake).map(([make, makeCars]) => (
             <div
               className='text-center p-4 border border-gray-400 w-28 min-w-[7rem] rounded-lg'
@@ -54,7 +54,7 @@ const CarsByMake = ({ cars }: { cars: Car[] }) => {
           ))}
         </div>
 
-        <div className='flex items-center justify-between w-full px-20 py-10 gap-10  lg:flex-row overflow-x-scroll'>
+        <div className='flex items-center justify-center gap-4 w-full px-4 py-10  lg:flex-row overflow-x-scroll'>
           {filteredCars.map((car) => (
             <CarCard key={car.id} car={car} />
           ))}

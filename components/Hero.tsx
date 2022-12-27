@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
 import { Button, Typography } from '@mui/material';
@@ -7,49 +7,67 @@ import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import NativeSelect from '@mui/material/NativeSelect';
-const marks = [
-  'Hepsi',
-  'Audi',
-  'Bentley',
-  'BMW',
-  'Porsche',
-  'Mercedes-Benz',
-  'Ford',
-  'Fiat',
-  'Opel',
-  'Volkswagen',
-  'Kia',
-  'Toyota',
-];
-const prices = [
-  '100 bin ₺',
-  '200 bin ₺',
-  '300 bin ₺',
-  '400 bin ₺',
-  '500 bin ₺',
-  '1 milyon ₺',
-  '1.5 milyon ₺',
-  '2 milyon ₺',
-];
-
-export function SelectTextFields() {
-  return (
-    <Box
-      component='form'
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-      }}
-      noValidate
-      autoComplete='off'
-    >
-      <div></div>
-    </Box>
-  );
+import getCars from '../lib/cars';
+import { useRouter } from 'next/router';
+import { red } from '@mui/material/colors';
+const makes = new Set(getCars().map((car) => car.make));
+enum Prices {
+  OneHundredThousand = '100 bin ₺',
+  TwoHundredThousand = '100 bin ₺',
+  ThreeHundredThousand = '100 bin ₺',
+  FourHundredThousand = '100 bin ₺',
+  FiveHundredThousand = '100 bin ₺',
+  OneMillion = '1 milyon ₺',
+  OnePointFiveMillion = '1.5 milyon ₺',
+  TwoMillion = '2 milyon ₺',
+  Price = 'Fiyat',
 }
+
+const prices = {
+  '100 bin ₺': '100000',
+  '200 bin ₺': '200000',
+  '300 bin ₺': '300000',
+  '400 bin ₺': '400000',
+  '500 bin ₺': '500000',
+  '1 milyon ₺': '1000000',
+  '1.5 milyon ₺': '1500000',
+  '2 milyon ₺': '2000000',
+};
+
 const Hero = () => {
+  const [selectedMake, setSelectedMake] = useState('');
+  const [selectedMinPrice, setSelectedMinPrice] = useState('');
+  const [selectedMaxPrice, setSelectedMaxPrice] = useState('');
+  const router = useRouter();
+  const ref = useRef<HTMLDivElement>(null);
+  const paperRef = useRef<HTMLFormElement>(null);
+  const search = () => {
+    if (selectedMinPrice === '' || selectedMaxPrice === '') {
+      router.push({
+        pathname: '/cars',
+        query: {
+          make: selectedMake === 'Hepsi' ? '' : selectedMake,
+          minPrice: selectedMinPrice,
+          maxPrice: selectedMaxPrice,
+        },
+      });
+    } else if (Number(selectedMaxPrice) < Number(selectedMinPrice)) {
+      ref.current!.hidden = false;
+      paperRef.current!.onchange = () => (ref.current!.hidden = true);
+    } else {
+      router.push({
+        pathname: '/cars',
+        query: {
+          make: selectedMake,
+          minPrice: selectedMinPrice,
+          maxPrice: selectedMaxPrice,
+        },
+      });
+    }
+  };
   return (
-    <div className='w-full h-full flex flex-col items-center lg:flex-row lg:justify-evenly'>
-      <Paper className='bg-transparent p-10 max-w-[20rem] lg:max-w-[26rem] shadow-md shadow-red-400 m-10 '>
+    <div className='w-full flex flex-col items-center lg:flex-row lg:justify-evenly'>
+      <Paper className='bg-transparent p-10 max-w-[20rem] lg:max-w-[26rem] shadow-sm shadow-red-400 m-10 '>
         <Typography className='text-black dark:text-white text-4xl lg:text-6xl font-bold'>
           Hayalindeki <br />
           arabayı bul
@@ -60,12 +78,19 @@ const Hero = () => {
         </Typography>
       </Paper>
       <Paper
-        className=' max-w-[20rem] w-[20rem] lg:w-[26rem] lg:max-w-[26rem] p-10 m-10 flex flex-col justify-center items-center bg-[#FFE6F2]'
+        ref={paperRef}
+        className=' max-w-[20rem] w-[20rem] lg:w-[26rem] lg:max-w-[26rem]
+        p-10 m-10 flex flex-col justify-center items-center 
+        shadow-sm shadow-gray-400
+        bg-transparent'
+        //  shadow-slate-800 '
+        // bg-[#1b24305a]'
+        // bg-[#2B3A55]'
         component={'form'}
       >
         <FormControl className='w-[15rem] lg:w-[20rem]'>
           <InputLabel
-            // className='text-slate-400'
+            className='text-slate-400 text-sm'
             variant='standard'
             htmlFor='marks-select'
           >
@@ -73,15 +98,20 @@ const Hero = () => {
           </InputLabel>
           <NativeSelect
             // className='text-white '
-            defaultValue={'Hepsi'}
+            defaultValue={selectedMake}
+            className='text-white border-gray-500 border-b'
             inputProps={{
               name: 'marks',
               id: 'marks-select',
             }}
+            onChange={(e) => setSelectedMake(e.target.value)}
           >
-            {marks.map((mark) => (
-              <option value={mark} key={mark}>
-                {mark}
+            <option className='text-white' value={'Hepsi'}>
+              Hepsi
+            </option>
+            {Array.from(makes).map((make) => (
+              <option value={make} key={make}>
+                {make}
               </option>
             ))}
           </NativeSelect>
@@ -92,22 +122,29 @@ const Hero = () => {
                   //   className='text-slate-400'
                   variant='standard'
                   htmlFor='min-price'
+                  className='text-slate-400 text-sm'
                 >
                   Alt Limit
                 </InputLabel>
                 <NativeSelect
-                  className='w-[6.5rem] '
-                  defaultValue={'Hepsi'}
+                  className='w-[6.5rem] text-white border-gray-500 border-b'
+                  defaultValue={selectedMinPrice}
                   inputProps={{
                     name: 'min',
                     id: 'min-price',
                   }}
+                  onChange={(e) => setSelectedMinPrice(e.target.value)}
                 >
-                  {prices.map((price) => (
-                    <option value={price} key={price}>
-                      {price}
-                    </option>
-                  ))}
+                  <option className='text-white' value={'-'}>
+                    -
+                  </option>
+                  {Object.entries(prices)
+                    .slice(0, -1)
+                    .map(([key, value]) => (
+                      <option value={value} key={value}>
+                        {key}
+                      </option>
+                    ))}
                 </NativeSelect>
               </FormControl>
             </div>
@@ -117,37 +154,43 @@ const Hero = () => {
                   //   className='text-slate-400'
                   variant='standard'
                   htmlFor='max-price'
+                  className='text-slate-400 text-sm'
                 >
                   Üst Limit
                 </InputLabel>
                 <NativeSelect
-                  className='w-[6.5rem]'
-                  defaultValue={'Hepsi'}
+                  className='w-[6.5rem] block text-white border-gray-500 border-b'
+                  defaultValue={selectedMaxPrice}
                   inputProps={{
                     name: 'max',
                     id: 'max-price',
                   }}
+                  onChange={(e) => setSelectedMaxPrice(e.target.value)}
                 >
-                  {prices.map((price) => (
-                    <option value={price} key={price}>
-                      {price}
-                    </option>
-                  ))}
+                  <option className='text-white' value={'-'}>
+                    -
+                  </option>
+                  {Object.entries(prices)
+                    ?.slice(1)
+                    ?.map(([key, value]) => (
+                      <option value={value} key={value}>
+                        {key}
+                      </option>
+                    ))}
                 </NativeSelect>
               </FormControl>
             </div>
           </div>
+          <div ref={ref} hidden className='text-center p-2 text-red-700'>
+            Fiyat aralığı yanlış
+          </div>
         </FormControl>
         <Button
+          onClick={search}
           fullWidth
           className='mt-10'
           color='error'
           variant='contained'
-          sx={{
-            '& .MuiButtonBase-root.MuiButton-root ': {
-              backgroundColor: '#0288d1',
-            },
-          }}
         >
           Ara
         </Button>
