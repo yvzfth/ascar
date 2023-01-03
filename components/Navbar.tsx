@@ -15,14 +15,13 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
-import { useAuth } from '../context/auth';
 import Image from 'next/image';
 // import firebaseClient from '../firebase';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import { useRouter } from 'next/router';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-
+import { useSession, signOut, signIn } from 'next-auth/react';
+import { userAgent } from 'next/server';
 const options = ['ARAÇLAR', 'HAKKIMIZDA', 'İLETİŞİM'];
 interface NavbarLinksProps {
   options: string[];
@@ -133,8 +132,7 @@ function NavbarLinks({ options, getClickedTabPath }: NavbarLinksProps) {
 }
 
 export function AccountMenu() {
-  const { user, setUser } = useAuth();
-  const router = useRouter();
+  const { data: session } = useSession();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -145,47 +143,40 @@ export function AccountMenu() {
   };
 
   const logout = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase
-      .auth()
-      .signOut()
-      .then(function (result) {
-        setUser(null);
-      });
+    signOut();
   };
 
-  if (user === null)
+  if (session === null)
     return (
       <div>
-        <Link href={'/login'} className='hidden md:block'>
-          <Button
-            variant='outlined'
-            color='error'
-            className={nunito.className + ' capitalize text-md text-gray-100'}
-            endIcon={<Login />}
-          >
-            Login
-          </Button>
-        </Link>
-        <Link href={'/login'} className='md:hidden'>
-          <Button
-            variant='outlined'
-            color='error'
-            className={
-              nunito.className +
-              ' text-gray-100 px-0 py-2 w-10 max-w-[52px] min-w-[52px] '
-            }
-          >
-            <Login className='m-0 p-0' />
-          </Button>
-        </Link>
+        <Button
+          variant='outlined'
+          color='error'
+          className={
+            nunito.className +
+            ' capitalize text-md text-gray-100 hidden md:flex'
+          }
+          endIcon={<Login />}
+          onClick={() => signIn()}
+        >
+          Login
+        </Button>
+        <Button
+          variant='outlined'
+          color='error'
+          className={
+            nunito.className +
+            ' text-gray-100 px-0 py-2 w-10 max-w-[52px] min-w-[52px] md:hidden'
+          }
+          onClick={() => signIn()}
+        >
+          <Login className='m-0 p-0' />
+        </Button>
       </div>
     );
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography> */}
-
         <Tooltip title='Account settings'>
           <IconButton
             className='ml-2'
@@ -196,15 +187,15 @@ export function AccountMenu() {
             aria-expanded={open ? 'true' : undefined}
           >
             <Avatar className='bg-red-500' sx={{ width: 32, height: 32 }}>
-              {user?.photoURL ? (
+              {session?.user?.image ? (
                 <Image
-                  src={String(user?.photoURL)}
+                  src={String(session!.user!.image)}
                   width={32}
                   height={32}
                   alt={'userImg'}
                 />
               ) : (
-                user?.displayName?.charAt(0) ?? 'A'
+                session?.user?.name?.charAt(0) ?? 'A'
               )}
             </Avatar>
           </IconButton>
@@ -250,18 +241,18 @@ export function AccountMenu() {
       >
         <MenuItem>
           <Avatar>
-            {user?.photoURL ? (
+            {session?.user?.image ? (
               <Image
-                src={String(user?.photoURL)}
+                src={String(session?.user?.image)}
                 width={32}
                 height={32}
                 alt={'userImg'}
               />
             ) : (
-              user?.displayName?.charAt(0) ?? 'A'
+              session?.user?.name?.charAt(0) ?? 'A'
             )}
           </Avatar>{' '}
-          {user.displayName}
+          {session?.user?.name}
         </MenuItem>
 
         <Divider />
