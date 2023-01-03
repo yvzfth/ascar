@@ -46,7 +46,7 @@ const contact = () => {
           <div className='pb-10'>
             <Typography>
               <MailOutline className='text-[#E38B29] pr-2' />
-              support@vehica.com
+              support@ascar.vercel.app
             </Typography>
           </div>
           <FollowUs />

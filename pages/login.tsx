@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useAuth } from '../context/user';
 import Google from '@mui/icons-material/Google';
 import Image from 'next/image';
-import firebaseClient from '../firebaseClient';
+// import firebase from 'firebase/app';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { useRouter } from 'next/router';
@@ -11,8 +11,8 @@ const Login = () => {
   const router = useRouter();
   const { user, setUser } = useAuth();
   const login = async () => {
-    const provider = new firebaseClient.auth.GoogleAuthProvider();
-
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
     // -----------------
     // sign in with redirect
 
@@ -66,7 +66,7 @@ const Login = () => {
       if (user) return router.push('/');
       return null;
     });
-  }, [firebaseClient]);
+  }, [firebase]);
 
   return (
     <div className='flex h-screen w-screen relative items-center justify-center'>

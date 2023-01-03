@@ -7,12 +7,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import FollowUs from './FollowUs';
-
+import { Cinzel } from '@next/font/google';
+const cinzel = Cinzel({ subsets: ['latin'] });
 const Footer = () => {
   return (
-    <footer className='bg-gray-800 py-4'>
-      <div className='w-full flex items-center justify-center lg:justify-start lg:pl-10 py-4'>
-        <Image src={'/vercel.svg'} width='150' height={'100'} alt={'logo'} />
+    <footer className='bg-[rgb(2,9,22)] py-4'>
+      <div
+        className={
+          cinzel.className +
+          ' text-2xl w-full flex items-center justify-center lg:justify-start lg:pl-10 py-4  text-red-500'
+        }
+      >
+        AsCar
       </div>
       <div className='flex flex-col lg:flex-row lg:justify-between lg:px-10'>
         <div className='text-center w-1/2 mx-auto py-4 lg:text-start lg:ml-0 '>
@@ -28,7 +34,7 @@ const Footer = () => {
 
           <Typography>
             <MailOutline className='text-[#E38B29] pr-2' />
-            support@vehica.com
+            support@ascar.vercel.app
           </Typography>
           <div>
             <Typography className='text-sm lg:text-md py-8 '>

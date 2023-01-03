@@ -44,7 +44,7 @@ const Car = () => {
               fuelType={car!?.fuelType}
               transmission={car!?.transmission}
             />
-            <div className='w-full flex flex-col  justify-center space-y-8'>
+            <div className='flex flex-col justify-center space-y-8 max-w-[60rem] mx-auto'>
               <div className='mb-4'>
                 <CarImageSlider
                   imageUrls={['/car1.jpeg', '/car2.jpeg', '/car3.jpeg']}

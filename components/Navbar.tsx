@@ -17,7 +17,7 @@ import Button from '@mui/material/Button';
 import Link from 'next/link';
 import { useAuth } from '../context/auth';
 import Image from 'next/image';
-import firebaseClient from '../firebaseClient';
+// import firebaseClient from '../firebase';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { useRouter } from 'next/router';
@@ -145,7 +145,7 @@ export function AccountMenu() {
   };
 
   const logout = () => {
-    const provider = new firebaseClient.auth.GoogleAuthProvider();
+    const provider = new firebase.auth.GoogleAuthProvider();
     firebase
       .auth()
       .signOut()

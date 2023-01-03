@@ -7,9 +7,12 @@ import React, {
   Dispatch,
   SetStateAction,
 } from 'react';
-import firebaseClient from '../firebaseClient';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
+// import firebaseClient from '../firebase';
+import firebase from '../firebase';
+// import firebase from 'firebase/compat/app';
+
+// import type {User} from "firebase/app"
+// import 'firebase/compat/auth';
 
 interface AuthContext {
   user: firebase.User | null;
@@ -41,7 +44,7 @@ export function AuthProvider({ children }: any) {
   // force refresh the token every 10 minutes
   useEffect(() => {
     const handle = setInterval(async () => {
-      const user = firebaseClient.auth().currentUser;
+      const user = firebase.auth().currentUser;
       if (user) await user.getIdToken(true);
     }, 10 * 60 * 1000);
 

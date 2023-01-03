@@ -14,6 +14,7 @@ const Cars = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Navbar />
+
       <AllCars />
       <Footer />
     </div>

@@ -28,7 +28,7 @@ const AllCars = () => {
   }, [searchQuery, selectedMake, selectedYear, cars]);
 
   return (
-    <div className='flex flex-col justify-center w-full items-center '>
+    <div className='flex flex-col justify-center w-full items-center'>
       <div className='flex flex-col md:flex-row md:items-center md:justify-center gap-4 p-4  m-4  bg-[#111111]  rounded-xl shadow  shadow-emerald-400'>
         <div className='relative rounded-md shadow-sm '>
           <input
