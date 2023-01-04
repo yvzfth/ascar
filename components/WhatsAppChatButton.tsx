@@ -1,5 +1,5 @@
+import React from 'react';
 import { Button } from '@mui/material';
-import * as React from 'react';
 
 const WhatsAppChatButton = () => {
   const handleClick = () => {

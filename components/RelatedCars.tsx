@@ -2,8 +2,7 @@ import React from 'react';
 
 import CarCard from './CarCard'; // import your CarCard component
 import getCars from '../lib/cars';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+
 import type { Car } from '../types';
 
 const RelatedCars = ({ id }: { id: string }) => {
@@ -12,11 +11,10 @@ const RelatedCars = ({ id }: { id: string }) => {
 
   const relatedCars = cars.filter(
     (car) =>
-      car.make === currentCar!.make &&
+      car.make === currentCar?.make &&
       //   car.model === currentCar!.model &&
-      car.id !== currentCar!.id
+      car.id !== currentCar?.id
   );
-  let randomCar;
   if (relatedCars.length === 0)
     relatedCars.push(cars?.at(Math.floor(Math.random() * cars.length))!);
   return (

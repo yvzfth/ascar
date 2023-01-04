@@ -1,49 +1,35 @@
 import { useEffect, useState } from 'react';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import { addDoc, collection, getDocs } from 'firebase/firestore';
-import { db } from '../../../firebase';
-const AdminDashboard = () => {
-  const [cars, setCars] = useState([]);
-
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       const db = firebase.firestore();
-  //       const data = await db.collection('cars').get();
-  //       setCars(data.docs.map((doc) => doc.data()));
-  //     };
-  //     fetchData();
-  //   }, []);
-  async function asyncFirestore() {
-    try {
-      const docRef = addDoc(collection(db, 'users'), {
-        first: 'Ada',
-        last: 'Lovelace',
-        born: 1815,
-      });
-      console.log('Document written with ID: ', (await docRef).id);
-    } catch (e) {
-      console.error('Error adding document: ', e);
-    }
-    try {
-      const docRef = addDoc(collection(db, 'users'), {
-        first: 'Alan',
-        middle: 'Mathison',
-        last: 'Turing',
-        born: 1912,
-      });
-
-      console.log('Document written with ID: ', (await docRef).id);
-    } catch (e) {
-      console.error('Error adding document: ', e);
-    }
-    const querySnapshot = await getDocs(collection(db, 'users'));
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
-    });
+import { Collection, MongoClient } from 'mongodb';
+import type { Car } from '../../../types';
+import { GetServerSideProps } from 'next';
+import { InferGetServerSidePropsType } from 'next';
+import mongoose from 'mongoose';
+const getServerSideProps: GetServerSideProps = async (context) => {
+  try {
+    await mongoose.connect(process.env?.MONGO_DB_URI!);
+    console.log('MongoDB connected');
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
   }
-  asyncFirestore();
+  const carSchema = new mongoose.Schema<Car>();
 
+  const CarModel = mongoose.model('Car', carSchema);
+  const cars = await CarModel.find({});
+  console.log(cars);
+  return {
+    props: {
+      data: cars,
+    },
+  };
+};
+const AdminDashboard = ({
+  data,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const [cars, setCars] = useState<Car[]>(data);
+  useEffect(() => {
+    setCars(data);
+  }, [data]);
   return (
     <div className='bg-gray-200 min-h-screen flex flex-col'>
       <header className='bg-white shadow-md'>
@@ -65,20 +51,22 @@ const AdminDashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {/* {cars.map((car) => (
-              <tr key={car.id}>
-                <td className='px-4 py-2'>{car.make}</td>
-                <td className='px-4 py-2'>{car.model}</td>
-                <td className='px-4 py-2'>{car.year}</td>
-                <td className='px-4 py-2'>{car.fuelType}</td>
-                <td className='px-4 py-2'>{car.transmission}</td> 
-                <td className='px-4 py-2 flex items-center'>
-                  <button className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))} */}
+            {/* {cars?.length === 0
+              ? null
+              : cars?.map((car) => (
+                  <tr key={car?.make}>
+                    <td className='px-4 py-2'>{car?.make}</td>
+                    <td className='px-4 py-2'>{car?.model}</td>
+                    <td className='px-4 py-2'>{car?.year}</td>
+                    <td className='px-4 py-2'>{car?.fuelType}</td>
+                    <td className='px-4 py-2'>{car?.transmission}</td>
+                    <td className='px-4 py-2 flex items-center'>
+                      <button className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))} */}
           </tbody>
         </table>
       </main>

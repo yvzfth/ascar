@@ -1,9 +1,11 @@
-import { Button, Typography } from '@mui/material';
 import React from 'react';
+import { useRouter } from 'next/router';
+
+import { Button, Typography } from '@mui/material';
+
 import CarCard from './CarCard';
 import FollowUs from './FollowUs';
 import getCars from '../lib/cars';
-import { useRouter } from 'next/router';
 
 const CarCardContainer = () => {
   const router = useRouter();

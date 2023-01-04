@@ -1,25 +1,15 @@
+import React from 'react';
+
 import { Typography } from '@mui/material';
 import MailOutline from '@mui/icons-material/MailOutline';
-import React from 'react';
-import Navbar from '../components/Navbar';
-import Head from 'next/head';
+
 import FollowUs from '../components/FollowUs';
 import SendEmail from '../components/SendEmail';
 import MapContainer from '../components/MapContainer';
-import Footer from '../components/Footer';
-const contact = () => {
+
+const Contact = () => {
   return (
-    <div className='h-screen pb-8'>
-      <Head>
-        <title>AsCar</title>
-        <meta name='description' content='AsCar - Araç Kirala, Al, Sat' />
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
-      <Navbar />
-      {/* <form action='/' method='post'>
-        <TextField id='outlined-basic' label='Outlined' variant='outlined' />
-      </form> */}
+    <div className='pb-8'>
       <div className='items-center justify-center flex w-full p-10 flex-col lg:flex-row lg:space-x-20'>
         <div className='lg:w-1/3 p-10 flex flex-col items-center justify-center lg:justify-start lg:items-start'>
           <div className='flex flex-col justify-center items-center lg:items-start'>
@@ -56,9 +46,8 @@ const contact = () => {
       <div className='w-full h-[25rem] p-4 pb-10'>
         <MapContainer />
       </div>
-      <Footer />
     </div>
   );
 };
 
-export default contact;
+export default Contact;

@@ -16,7 +16,7 @@ const CarsByMake = ({ cars }: { cars: Car[] }) => {
 
   useEffect(() => {
     setFilteredCars(carsByMake[selectedMake!]);
-  }, [selectedMake, cars]);
+  }, [selectedMake]);
 
   return (
     <div className='bg-[#111111] pt-8 m-4 rounded-xl shadow  shadow-emerald-400'>
@@ -25,22 +25,6 @@ const CarsByMake = ({ cars }: { cars: Car[] }) => {
       </div>
 
       <div className='flex flex-col space-y-4 px-4 lg:px-12 w-full'>
-        {/* <select
-          value={selectedMake}
-          className={
-            'py-2 pl-10 mx-auto w-1/2 leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5'
-          }
-          onChange={(e) => setSelectedMake(e.target.value)}
-        >
-          
-          {Array.from(new Set(cars.map((car) => car.make))).map(
-            (make, index) => (
-              <option key={make} value={make}>
-                {make}
-              </option>
-            )
-          )}
-        </select> */}
         <div className='flex flex-row items-center justify-between  gap-4 px-4 lg:px-12 w-full h-40 overflow-x-scroll'>
           {Object.entries(carsByMake).map(([make, makeCars]) => (
             <div

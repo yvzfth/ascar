@@ -1,6 +1,6 @@
 import React from 'react';
-import CheckCircle from '@mui/icons-material/CheckCircle';
 import Image from 'next/image';
+import CheckCircle from '@mui/icons-material/CheckCircle';
 
 type TechnologiesProps = {
   technologies: string[];

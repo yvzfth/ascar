@@ -1,21 +1,22 @@
+import React from 'react';
+import Link from 'next/link';
+
 import Facebook from '@mui/icons-material/Facebook';
 import Instagram from '@mui/icons-material/Instagram';
 import MailOutline from '@mui/icons-material/MailOutline';
 import Twitter from '@mui/icons-material/Twitter';
 import { Typography } from '@mui/material';
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
-import FollowUs from './FollowUs';
 import { Cinzel } from '@next/font/google';
+
 const cinzel = Cinzel({ subsets: ['latin'] });
+
 const Footer = () => {
   return (
     <footer className='bg-[rgb(2,9,22)] py-4'>
       <div
         className={
           cinzel.className +
-          ' text-2xl w-full flex items-center justify-center lg:justify-start lg:pl-10 py-4  text-red-500'
+          ' text-2xl w-full flex items-center justify-center lg:justify-start lg:pl-10 py-4 text-red-500'
         }
       >
         AsCar

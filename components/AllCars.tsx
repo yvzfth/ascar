@@ -25,7 +25,7 @@ const AllCars = () => {
           Number(maxPrice) >= car.price
       )
     );
-  }, [searchQuery, selectedMake, selectedYear, cars]);
+  }, [searchQuery, selectedMake, selectedYear, cars, maxPrice, minPrice]);
 
   return (
     <div className='flex flex-col justify-center w-full items-center'>
