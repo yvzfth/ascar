@@ -1,11 +1,11 @@
 import Navbar from './Navbar';
 import Footer from './Footer';
 import React, { ReactElement } from 'react';
-import Head from './Head';
+import HeadComponent from './HeadComponent';
 export default function Layout({ children }: { children: ReactElement }) {
   return (
     <>
-      <Head />
+      <HeadComponent />
       <Navbar />
       <main>{children}</main>
       <Footer />
