@@ -1,4 +1,4 @@
-import type { Car } from '../../types';
+import type { Car } from '../types';
 
 const getCars = (): Car[] => {
   return [
