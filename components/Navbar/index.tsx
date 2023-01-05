@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <div
       className={
-        'sticky backdrop-blur-3xl top-0 left-0 z-50  flex py-4 px-8 w-screen items-center justify-between '
+        'flex py-4 px-8 lg:px-16 w-screen items-center justify-between'
       }
     >
       <div className='max-lg:hidden'>

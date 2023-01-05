@@ -43,7 +43,8 @@ const CarImageSlider = ({ imageUrls }: CarImageSliderTypes) => {
       </button>
       <button
         onClick={handleNextClick}
-        className='absolute top-0 right-0 w-1/2 justify-end flex items-center p-4 h-full rounded-r-md text-3xl font-bold text-white z-10'
+        className='absolute top-0 right-0 w-1/2 justify-end flex items-center 
+        p-4 h-full rounded-r-md text-3xl font-bold text-white z-10'
       >
         <svg
           className='w-6 h-6'
