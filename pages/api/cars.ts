@@ -5,6 +5,17 @@ import Car from '../../model/car.model';
 
 async function test(req: NextApiRequest, res: NextApiResponse) {
   try {
+    if (req.method === 'POST') {
+      console.log(req.body);
+      const car = await Car.collection.insertOne(req.body);
+      console.log(car.insertedId);
+      res
+        .status(200)
+        .send('car has been inserted to db with id: ' + car.insertedId);
+    } else {
+      const cars = await Car.find({});
+      res.status(201).json({ cars });
+    }
     // const car = new CarModel({
     //   id: 14,
     //   make: 'Mazda',
@@ -33,9 +44,8 @@ async function test(req: NextApiRequest, res: NextApiResponse) {
     //     'Xtronic CVT transmission',
     //   ],
     // });
+
     // car.save();
-    const cars = await Car.find({});
-    res.status(201).json({ cars });
 
     // Erase test data after use
     // connection.db.dropCollection(testModel.collection.collectionName);

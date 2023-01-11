@@ -1,6 +1,6 @@
-import type { Car } from '../types';
+import type { ICar } from '../types';
 
-const getCars = (): Car[] => {
+const getCars = (): ICar[] => {
   return [
     {
       id: 1,

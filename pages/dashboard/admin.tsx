@@ -21,17 +21,18 @@ const AdminDashboard = () => {
 
   return (
     <div className='bg-gray-200 min-h-screen flex flex-col'>
-      <main className='container mx-auto px-6 py-8'>
-        <div className='flex justify-between items-center'>
-          <h2 className='text-xl font-bold text-gray-900 mb-6'>Cars</h2>
-          <button
+      <main className='container mx-auto px-6'>
+        <div className='flex justify-between items-center py-4'>
+          <h2 className='text-xl font-bold text-gray-900 '>Cars</h2>
+          <FormPopup />
+          {/* <button
             onClick={() => setIsOpen(true)}
             className='text-black text-xl py-2 px-4 bg-stone-300 rounded-full hover:bg-transparent hover:border hover:border-stone-300 '
           >
             +
-          </button>
+          </button> */}
         </div>
-        <FormPopup isOpen={isOpen} onClose={() => setIsOpen(false)} />
+        {/* <FormPopup isOpen={isOpen} onClose={() => setIsOpen(false)} /> */}
         <table className='w-full text-gray-700'>
           <thead>
             <tr className='bg-gray-400'>

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import Image from 'next/image';
-import type { Car } from '../types';
+import { ICar } from '../types';
 import { useRouter } from 'next/router';
 
-export default function CarCard({ car }: { car: Car }) {
+export default function CarCard({ car }: { car: ICar }) {
   const router = useRouter();
   return (
     <Card

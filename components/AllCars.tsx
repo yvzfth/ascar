@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect, useMemo } from 'react';
-import type { Car } from '../types';
+import { ICar } from '../types';
 import getCars from '../lib/cars';
 import CarCard from './CarCard';
 import { useRouter } from 'next/router';
@@ -10,8 +10,8 @@ const AllCars = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedMake, setSelectedMake] = useState(router.query?.make ?? '');
   const [selectedYear, setSelectedYear] = useState('');
-  const [filteredCars, setFilteredCars] = useState<Car[]>([]);
-  const cars: Car[] = useMemo(() => getCars(), []);
+  const [filteredCars, setFilteredCars] = useState<ICar[]>([]);
+  const cars: ICar[] = useMemo(() => getCars(), []);
   const minPrice = router.query?.minPrice || 0;
   const maxPrice = router.query?.maxPrice || 100000000;
   useEffect(() => {

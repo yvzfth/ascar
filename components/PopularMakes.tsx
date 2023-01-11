@@ -1,16 +1,16 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import getCars from '../lib/cars';
 import CarCard from './CarCard';
-import type { Car } from '../types';
+import { ICar } from '../types';
 
-const CarsByMake = ({ cars }: { cars: Car[] }) => {
+const CarsByMake = ({ cars }: { cars: ICar[] }) => {
   const makes = new Set(cars.map((car) => car.make));
-  const carsByMake: { [key: string]: Car[] } = {};
+  const carsByMake: { [key: string]: ICar[] } = {};
   for (const make of makes) {
     carsByMake[make] = cars.filter((car) => car.make === make);
   }
   const [selectedMake, setSelectedMake] = useState(cars?.at(0)?.make);
-  const [filteredCars, setFilteredCars] = useState<Car[]>(
+  const [filteredCars, setFilteredCars] = useState<ICar[]>(
     carsByMake[selectedMake!]
   );
 
@@ -49,7 +49,7 @@ const CarsByMake = ({ cars }: { cars: Car[] }) => {
 };
 
 const PopularMakes = () => {
-  const cars: Car[] = useMemo(() => getCars(), []);
+  const cars: ICar[] = useMemo(() => getCars(), []);
 
   return <CarsByMake cars={cars} />;
 };

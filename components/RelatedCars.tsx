@@ -3,8 +3,6 @@ import React from 'react';
 import CarCard from './CarCard'; // import your CarCard component
 import getCars from '../lib/cars';
 
-import type { Car } from '../types';
-
 const RelatedCars = ({ id }: { id: string }) => {
   const cars = getCars();
   const currentCar = cars.find((car) => car.id === Number(id)); // get the current car based on its id
