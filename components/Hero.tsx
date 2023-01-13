@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import Paper from '@mui/material/Paper';
-import { Button, Typography } from '@mui/material';
+import { Button, Select, Typography } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import NativeSelect from '@mui/material/NativeSelect';
@@ -8,6 +8,7 @@ import axios from 'axios';
 import { ICar } from '../types';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
+import { CarContext } from '../lib/CarContext';
 
 const prices = {
   '100 bin ₺': '100000',
@@ -21,25 +22,15 @@ const prices = {
 };
 
 const Hero = () => {
+  const cars = React.useContext(CarContext);
   const [selectedMake, setSelectedMake] = useState('');
   const [selectedMinPrice, setSelectedMinPrice] = useState('');
   const [selectedMaxPrice, setSelectedMaxPrice] = useState('');
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   const paperRef = useRef<HTMLFormElement>(null);
-  const fetcher = async (url: string) =>
-    await axios.get(url).then((res) => res.data);
-  const { data, error, isLoading } = useSWR('/api/cars', fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
+  const makes = new Set(cars?.map((car) => car.make));
 
-  if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
-
-  const { cars }: { cars: ICar[] } = data;
-  const makes = new Set(cars.map((car) => car.make));
   const search = () => {
     if (selectedMinPrice === '' || selectedMaxPrice === '') {
       router.push({
@@ -104,7 +95,7 @@ const Hero = () => {
           >
             Araç Markası Seçiniz
           </InputLabel>
-          <NativeSelect
+          <Select
             // className='text-white '
             defaultValue={selectedMake}
             className='text-white border-gray-500 border-b'
@@ -122,7 +113,7 @@ const Hero = () => {
                 {make}
               </option>
             ))}
-          </NativeSelect>
+          </Select>
           <div className='flex pt-10 justify-between'>
             <div>
               <FormControl className='max-w-[10rem]'>

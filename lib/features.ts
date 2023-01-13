@@ -1,4 +1,4 @@
-export default [
+const features = [
   'Otomatik şanzıman',
   'Manuel şanzıman',
   'Hidrolik direksiyon',
@@ -50,3 +50,4 @@ export default [
   'Otomatik park etme',
   'Elektrikli direksiyon',
 ];
+export default features;

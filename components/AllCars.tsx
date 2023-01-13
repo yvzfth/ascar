@@ -1,48 +1,35 @@
-import React, { useState } from 'react';
-import { useEffect, useMemo } from 'react';
-import { ICar } from '../types';
-import axios from 'axios';
-import useSWR from 'swr';
-// import getCars from '../lib/cars';
-import CarCard from './CarCard';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
+import CarCard from './CarCard';
+import { CarContext } from '../lib/CarContext';
+import { ICar } from '../types';
+import _ from 'lodash';
 const AllCars = () => {
   const router = useRouter();
+  const cars = React.useContext(CarContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedMake, setSelectedMake] = useState(router.query?.make ?? '');
   const [selectedYear, setSelectedYear] = useState('');
-  const fetcher = async (url: string) =>
-    await axios.get(url).then((res) => res.data);
-  const { data, error, isLoading } = useSWR('/api/cars', fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
+  const [filteredCars, setFilteredCars] = useState<ICar[]>(cars);
+
   const minPrice = router.query?.minPrice || 0;
   const maxPrice = router.query?.maxPrice || 100000000;
-  // useEffect(() => {
-  //   // const cars: ICar[] = useMemo(() => getCars(), []);
 
-  //     setFilteredCars(
-  //       cars.filter(
-  //         (car) =>
-  //           car.make.toLowerCase().includes(searchQuery.toLowerCase()) &&
-  //           (selectedMake === '' || car.make === selectedMake) &&
-  //           (selectedYear === '' || car.year === parseInt(selectedYear)) &&
-  //           Number(minPrice) <= car.price &&
-  //           Number(maxPrice) >= car.price
-  //       )
-  //     );
-  // }, [searchQuery, selectedMake, selectedYear]);
-
-  if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
-
-  const { cars }: { cars: ICar[] } = data;
-  console.log(cars);
-  // const [filteredCars, setFilteredCars] = useState<ICar[]>(cars);
-
+  useEffect(() => {
+    !_.isEmpty(cars) &&
+      setFilteredCars(
+        cars.filter(
+          (car) =>
+            car.make.toLowerCase().includes(searchQuery.toLowerCase()) &&
+            (selectedMake === '' || car.make === selectedMake) &&
+            (selectedYear === '' || car.year === parseInt(selectedYear)) &&
+            Number(minPrice) <= car.price &&
+            Number(maxPrice) >= car.price
+        )
+      );
+  }, [cars, searchQuery, selectedMake, selectedYear]);
+  if (_.isEmpty(cars)) return <div>Loading</div>;
   return (
     <div className='flex flex-col justify-center w-full items-center'>
       <div className='flex flex-col md:flex-row md:items-center md:justify-center gap-4 p-4  m-4  bg-[#111111]  rounded-xl shadow  shadow-emerald-400'>
@@ -100,7 +87,7 @@ const AllCars = () => {
         </div>
       </div>
       <div className='flex flex-wrap gap-8 items-center justify-center  bg-[#111111] p-8 m-4 rounded-xl shadow  shadow-emerald-400'>
-        {cars.map((car, index) => (
+        {filteredCars?.map((car, index) => (
           <div key={index}>
             <CarCard car={car} />
           </div>

@@ -1,55 +1,25 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import axios from 'axios';
-import useSWR from 'swr';
-// import getCars from '../lib/cars';
+import React, { useEffect, useState } from 'react';
 import CarCard from './CarCard';
 import { ICar } from '../types';
 import { Button } from '@mui/material';
+import { CarContext } from '../lib/CarContext';
 
 const PopularMakes = () => {
-  const [cars, setCars] = useState<ICar[]>();
-  const [carsByMake, setCarsByMake] = useState<{ [key: string]: ICar[] }>({});
-  const [makes, setMakes] = useState<ICar['make'][]>([]);
-  const [selectedMake, setSelectedMake] = useState<ICar['make']>();
-  const [filteredCars, setFilteredCars] = useState<ICar[]>(cars!);
+  const cars = React.useContext(CarContext);
+  const carsByMake = cars?.reduce((acc, cur) => {
+    (acc[cur.make] = acc[cur.make] || []).push(cur);
+    return acc;
+  }, {} as { [key: string]: ICar[] });
+  const head = <T extends unknown[]>(val: T): T[number] | undefined => val[0];
 
-  const fetcher = async (url: string) =>
-    await axios.get(url).then((res) => res.data);
-  const { data, error, isLoading } = useSWR('/api/cars', fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
-  const { cars: carsData }: { cars: ICar[] } = data ? data : [];
+  const makes = Array.from(new Set(cars?.map((car) => car.make)));
+  const [selectedMake, setSelectedMake] = useState<ICar['make']>(head(makes!)!);
+  const [filteredCars, setFilteredCars] = useState<ICar[]>([]);
 
   useEffect(() => {
-    !cars && setCars(carsData);
-
-    cars &&
-      makes?.length === 0 &&
-      setMakes(Array.from(new Set(cars?.map((car) => car.make))));
-
-    !selectedMake && setSelectedMake(makes?.at(0));
-    carsByMake && setFilteredCars(carsByMake![selectedMake!]);
-  }, [carsData, cars, makes, selectedMake]);
-
-  useEffect(() => {
-    if (
-      cars &&
-      typeof carsByMake !== 'undefined' &&
-      carsByMake !== null &&
-      Object.keys(carsByMake!).length === 0
-    ) {
-      const grouped = cars?.reduce((acc, cur) => {
-        (acc[cur.make] = acc[cur.make] || []).push(cur);
-        return acc;
-      }, {} as { [key: string]: ICar[] });
-      setCarsByMake({ ...grouped });
-    }
-  }, [cars]);
-
-  if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
+    !selectedMake && makes && setSelectedMake(head(makes)!);
+    selectedMake && setFilteredCars(carsByMake![selectedMake!]);
+  }, [selectedMake, cars]);
 
   return (
     <div className='bg-[#111111] p-4 m-4 rounded-xl shadow  shadow-emerald-400'>

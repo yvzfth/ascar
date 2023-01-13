@@ -1,4 +1,4 @@
-export default [
+const technologies = [
   'Kilitlenme önleyici fren sistemleri (ABS)',
   'Otomatik acil frenleme (AEB)',
   'Uyarlanabilir hız sabitleyici (ACC)',
@@ -25,3 +25,4 @@ export default [
   'Gelişmiş sürücü destek sistemleri (ADAS)',
   'Otonom sürüş teknolojisi',
 ];
+export default technologies;

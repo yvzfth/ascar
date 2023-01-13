@@ -1,23 +1,11 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import useSWR from 'swr';
-
+import React from 'react';
 import FormPopup from '../../components/FormPopup';
+import { CarContext } from '../../lib/CarContext';
+import _ from 'lodash';
 
 const AdminDashboard = () => {
-  const fetcher = async (url: string) =>
-    await axios.get(url).then((res) => res.data);
-  const { data, error, isLoading } = useSWR('/api/cars', fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
-
-  if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
-
-  const { cars } = data;
-
+  const cars = React.useContext(CarContext);
+  if (_.isEmpty(cars)) return <div>Loading</div>;
   return (
     <div className='bg-gray-200 min-h-screen flex flex-col'>
       <main className='container mx-auto px-6'>

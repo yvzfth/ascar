@@ -4,31 +4,27 @@ import useSWR from 'swr';
 import CarCard from './CarCard'; // import your CarCard component
 
 import { ICar } from '../types';
+import { CarContext } from '../lib/CarContext';
+
+const getRandomElement = (arr: ICar[], current: ICar) => {
+  let newArr = arr?.filter((el) => el !== current);
+  if (newArr?.length === 0) return;
+  let index = Math.floor(Math.random() * newArr?.length);
+  return newArr[index];
+};
 
 const RelatedCars = ({ _id }: { _id: string }) => {
-  const fetcher = async (url: string) =>
-    await axios.get(url).then((res) => res.data);
-  const { data, error, isLoading } = useSWR('/api/cars', fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
+  const cars = React.useContext(CarContext);
+  const currentCar = cars?.find((car) => String(car?._id) === _id); // get the current car based on its id
 
-  if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
-
-  const { cars }: { cars: ICar[] } = data;
-
-  const currentCar = cars.find((car) => String(car?._id) === _id); // get the current car based on its id
-
-  const relatedCars = cars.filter(
+  const relatedCars = cars?.filter(
     (car) =>
-      car.make === currentCar?.make &&
+      car?.make === currentCar?.make &&
       //   car.model === currentCar!.model &&
       car?._id !== currentCar?._id
   );
-  if (relatedCars.length === 0)
-    relatedCars.push(cars?.at(Math.floor(Math.random() * cars.length))!);
+  if (relatedCars?.length === 0)
+    relatedCars?.push(getRandomElement(cars!, currentCar!)!);
   return (
     <div className=' bg-[#111111] pt-8  rounded-xl shadow  shadow-emerald-400'>
       <div className=' z-10 py-2 px-4 bg-white shadow'>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { Button } from '@mui/material';
@@ -10,6 +10,8 @@ import CarImageSlider from '../../../components/CarImageSlider';
 import SendEmail from '../../../components/SendEmail';
 import { ICar } from '../../../types';
 import separateThreeDigitsWithDot from '../../../utils/separateThreeDigitsWithDot';
+import { CarContext } from '../../../lib/CarContext';
+import _ from 'lodash';
 const MapContainer = dynamic(() => import('../../../components/MapContainer'), {
   ssr: false,
 });
@@ -23,28 +25,12 @@ const RelatedCars = dynamic(() => import('../../../components/RelatedCars'), {
   ssr: false,
 });
 const Car = () => {
-  const [car, setCar] = React.useState<ICar>();
-  const [cars, setCars] = React.useState<ICar[]>();
   const router = useRouter();
   const { _id } = router.query;
-  const fetcher = async (url: string) =>
-    await axios.get(url).then((res) => res.data);
-  const { data, error, isLoading } = useSWR('/api/cars', fetcher, {
-    revalidateIfStale: true,
-    revalidateOnFocus: true,
-    revalidateOnReconnect: true,
-  });
-  const { cars: carsData }: { cars: ICar[] } = data ? data : [];
+  const cars = useContext(CarContext);
 
-  React.useEffect(() => {
-    setCars(carsData);
-    setCar(cars?.find((car) => car?._id == _id!));
-  }, [carsData, car, cars, _id]);
-  if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
-
-  // const [logedIn, setLogedIn] = React.useState<true | false>(false);
-  // if (car !== undefined)
+  const car = cars?.find((car) => car?._id == _id!);
+  if (_.isEmpty(cars)) return <div>Loading</div>;
   return (
     <div>
       <div className='container mx-auto py-4 '>
