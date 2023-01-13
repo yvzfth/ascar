@@ -24,7 +24,7 @@ const currentYear = new Date().getFullYear();
 const years = Array.from({ length: 30 }, (_, i) => currentYear - i);
 const ImagePreview = dynamic(() => import('./ImagePreview'), {
   ssr: false,
-  loading: () => <div>"Loading..."</div>,
+  loading: () => <div>Loading...</div>,
 });
 export default function DialogSelect() {
   const [open, setOpen] = React.useState(false);
