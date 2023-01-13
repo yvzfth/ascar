@@ -5,7 +5,6 @@ import useSWR from 'swr';
 import FormPopup from '../../components/FormPopup';
 
 const AdminDashboard = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const fetcher = async (url: string) =>
     await axios.get(url).then((res) => res.data);
   const { data, error, isLoading } = useSWR('/api/cars', fetcher, {
@@ -25,14 +24,7 @@ const AdminDashboard = () => {
         <div className='flex justify-between items-center py-4'>
           <h2 className='text-xl font-bold text-gray-900 '>Cars</h2>
           <FormPopup />
-          {/* <button
-            onClick={() => setIsOpen(true)}
-            className='text-black text-xl py-2 px-4 bg-stone-300 rounded-full hover:bg-transparent hover:border hover:border-stone-300 '
-          >
-            +
-          </button> */}
         </div>
-        {/* <FormPopup isOpen={isOpen} onClose={() => setIsOpen(false)} /> */}
         <table className='w-full text-gray-700'>
           <thead>
             <tr className='bg-gray-400'>

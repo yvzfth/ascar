@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useEffect, useMemo } from 'react';
 import { ICar } from '../types';
-import getCars from '../lib/cars';
+import axios from 'axios';
+import useSWR from 'swr';
+// import getCars from '../lib/cars';
 import CarCard from './CarCard';
 import { useRouter } from 'next/router';
 
@@ -10,22 +12,36 @@ const AllCars = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedMake, setSelectedMake] = useState(router.query?.make ?? '');
   const [selectedYear, setSelectedYear] = useState('');
-  const [filteredCars, setFilteredCars] = useState<ICar[]>([]);
-  const cars: ICar[] = useMemo(() => getCars(), []);
+  const fetcher = async (url: string) =>
+    await axios.get(url).then((res) => res.data);
+  const { data, error, isLoading } = useSWR('/api/cars', fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
   const minPrice = router.query?.minPrice || 0;
   const maxPrice = router.query?.maxPrice || 100000000;
-  useEffect(() => {
-    setFilteredCars(
-      cars.filter(
-        (car) =>
-          car.make.toLowerCase().includes(searchQuery.toLowerCase()) &&
-          (selectedMake === '' || car.make === selectedMake) &&
-          (selectedYear === '' || car.year === parseInt(selectedYear)) &&
-          Number(minPrice) <= car.price &&
-          Number(maxPrice) >= car.price
-      )
-    );
-  }, [searchQuery, selectedMake, selectedYear, cars, maxPrice, minPrice]);
+  // useEffect(() => {
+  //   // const cars: ICar[] = useMemo(() => getCars(), []);
+
+  //     setFilteredCars(
+  //       cars.filter(
+  //         (car) =>
+  //           car.make.toLowerCase().includes(searchQuery.toLowerCase()) &&
+  //           (selectedMake === '' || car.make === selectedMake) &&
+  //           (selectedYear === '' || car.year === parseInt(selectedYear)) &&
+  //           Number(minPrice) <= car.price &&
+  //           Number(maxPrice) >= car.price
+  //       )
+  //     );
+  // }, [searchQuery, selectedMake, selectedYear]);
+
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
+
+  const { cars }: { cars: ICar[] } = data;
+  console.log(cars);
+  // const [filteredCars, setFilteredCars] = useState<ICar[]>(cars);
 
   return (
     <div className='flex flex-col justify-center w-full items-center'>
@@ -84,8 +100,8 @@ const AllCars = () => {
         </div>
       </div>
       <div className='flex flex-wrap gap-8 items-center justify-center  bg-[#111111] p-8 m-4 rounded-xl shadow  shadow-emerald-400'>
-        {filteredCars.map((car) => (
-          <div key={car.id}>
+        {cars.map((car, index) => (
+          <div key={index}>
             <CarCard car={car} />
           </div>
         ))}

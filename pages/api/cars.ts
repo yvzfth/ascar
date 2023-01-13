@@ -2,13 +2,20 @@
 import connectDB from '../../middleware/mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Car from '../../model/car.model';
+import { ObjectId } from 'mongodb';
 
 async function test(req: NextApiRequest, res: NextApiResponse) {
   try {
     if (req.method === 'POST') {
-      console.log(req.body);
-      const car = await Car.collection.insertOne(req.body);
+      let data = req.body;
+      data = { ...data, _id: new ObjectId() };
+      console.log(data);
+
+      const car = await new Car(data);
+
+      car.save();
       console.log(car.insertedId);
+
       res
         .status(200)
         .send('car has been inserted to db with id: ' + car.insertedId);

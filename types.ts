@@ -1,6 +1,6 @@
 export interface ICar {
-  [key: string]: number | string | string[];
-  id: number;
+  // [key: string]: number | string | string[];
+  _id: any;
   make: string;
   model: string;
   year: number;

@@ -3,15 +3,16 @@ import Card from '@mui/material/Card';
 import Image from 'next/image';
 import { ICar } from '../types';
 import { useRouter } from 'next/router';
+import separateThreeDigitsWithDot from '../utils/separateThreeDigitsWithDot';
 
 export default function CarCard({ car }: { car: ICar }) {
   const router = useRouter();
   return (
     <Card
       className={
-        'group rounded-xl w-[20rem] min-w-[20rem] border-[rgb(var(--card-border-rgb))] border '
+        'group rounded-xl w-[20rem] min-w-[20rem] border-[rgb(var(--card-border-rgb))] border cursor-pointer'
       }
-      onClick={() => router.push(`/cars/${car.id}`)}
+      onClick={() => router.push(`/cars/${car._id}`)}
     >
       <div className=' relative  w-full h-44'>
         <Image
@@ -23,9 +24,13 @@ export default function CarCard({ car }: { car: ICar }) {
       </div>
       <div className={' bg-[rgb(26,29,38)] px-4 text-white '}>
         <div className='px-4 py-2 '>
-          <p className='text-2xl opacity-80'>{car.make}</p>
+          <div className='text-2xl opacity-80'>
+            {car.make}
+            <span className='text-xl opacity-80'> {car.model}</span>
+          </div>
+
           <p className='text-2xl font-extrabold group-hover:translate-x-1 transition-transform duration-300'>
-            {car.price}₺
+            {separateThreeDigitsWithDot(car.price)}₺
           </p>
         </div>
         <hr className='border-[rgb(39,45,58)] h-1 mx-4' />

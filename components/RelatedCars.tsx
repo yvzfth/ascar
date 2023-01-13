@@ -1,17 +1,31 @@
 import React from 'react';
-
+import axios from 'axios';
+import useSWR from 'swr';
 import CarCard from './CarCard'; // import your CarCard component
-import getCars from '../lib/cars';
 
-const RelatedCars = ({ id }: { id: string }) => {
-  const cars = getCars();
-  const currentCar = cars.find((car) => car.id === Number(id)); // get the current car based on its id
+import { ICar } from '../types';
+
+const RelatedCars = ({ _id }: { _id: string }) => {
+  const fetcher = async (url: string) =>
+    await axios.get(url).then((res) => res.data);
+  const { data, error, isLoading } = useSWR('/api/cars', fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
+
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
+
+  const { cars }: { cars: ICar[] } = data;
+
+  const currentCar = cars.find((car) => String(car?._id) === _id); // get the current car based on its id
 
   const relatedCars = cars.filter(
     (car) =>
       car.make === currentCar?.make &&
       //   car.model === currentCar!.model &&
-      car.id !== currentCar?.id
+      car?._id !== currentCar?._id
   );
   if (relatedCars.length === 0)
     relatedCars.push(cars?.at(Math.floor(Math.random() * cars.length))!);
@@ -24,8 +38,8 @@ const RelatedCars = ({ id }: { id: string }) => {
         <div className=' pb-4/5 overflow-hidden bg-transparent rounded-lg shadow-lg'>
           <div className=' bg-transparent rounded-lg shadow-lg'>
             <div className='flex items-center gap-4 w-full px-4 py-10 overflow-x-scroll'>
-              {relatedCars.map((car) => (
-                <CarCard key={car.id} car={car} />
+              {relatedCars.map((car, index) => (
+                <CarCard key={index} car={car} />
               ))}
             </div>
           </div>
@@ -34,24 +48,5 @@ const RelatedCars = ({ id }: { id: string }) => {
     </div>
   );
 };
-
-// const RelatedCars = ({ car }: { car: Car }) => {
-//   const relatedCars = getCars().filter((c) => c.make === car.make && c.id !== car.id);
-
-//   return (
-//     <div className="flex overflow-x-scroll">
-//       {relatedCars.map((relatedCar) => (
-//         <Link href="/cars/[id]" as={`/cars/${relatedCar.id}`} key={relatedCar.id}>
-//           <a className="mx-2">
-//             <img src={relatedCar.imageUrl} alt={`${relatedCar.make} ${relatedCar.model}`} className="w-32 h-24 object-cover rounded-lg shadow-md" />
-//             <div className="text-gray-700 text-sm font-semibold my-2">
-//               {relatedCar.make} {relatedCar.model}
-//             </div>
-//           </a>
-//         </Link>
-//       ))}
-//     </div>
-//   );
-// };
 
 export default RelatedCars;

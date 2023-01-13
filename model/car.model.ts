@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-import { Car } from '../types';
+import { ICar } from '../types';
 var Schema = mongoose.Schema;
 
-const carSchema = new Schema<Car>({
-  id: Number,
+const carSchema = new Schema<ICar>({
+  _id: String,
   make: String,
   model: String,
   year: Number,

@@ -7,8 +7,9 @@ import NavbarLinks from './NavbarLinks';
 const Navbar = () => {
   return (
     <div
+      id='navbar'
       className={
-        'flex py-4 px-8 lg:px-16 w-screen items-center justify-between'
+        'sticky top-0 flex py-4 px-8 lg:px-16 w-screen items-center justify-between'
       }
     >
       <div className='max-lg:hidden'>

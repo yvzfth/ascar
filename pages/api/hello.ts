@@ -1,13 +1,18 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 type Data = {
-  name: string
-}
+  name: string;
+};
+
+var base: string;
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<{ base64: string }>
 ) {
-  res.status(200).json({ name: 'John Doe' })
+  if (req.method === 'POST') {
+    base = req.body.base64;
+    res.send({ base64: base });
+  } else res.status(200).send({ base64: base });
 }

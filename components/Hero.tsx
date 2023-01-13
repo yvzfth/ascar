@@ -4,10 +4,10 @@ import { Button, Typography } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import NativeSelect from '@mui/material/NativeSelect';
-import getCars from '../lib/cars';
+import axios from 'axios';
+import { ICar } from '../types';
+import useSWR from 'swr';
 import { useRouter } from 'next/router';
-
-const makes = new Set(getCars().map((car) => car.make));
 
 const prices = {
   '100 bin ₺': '100000',
@@ -27,6 +27,19 @@ const Hero = () => {
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   const paperRef = useRef<HTMLFormElement>(null);
+  const fetcher = async (url: string) =>
+    await axios.get(url).then((res) => res.data);
+  const { data, error, isLoading } = useSWR('/api/cars', fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
+
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
+
+  const { cars }: { cars: ICar[] } = data;
+  const makes = new Set(cars.map((car) => car.make));
   const search = () => {
     if (selectedMinPrice === '' || selectedMaxPrice === '') {
       router.push({

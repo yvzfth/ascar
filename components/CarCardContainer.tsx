@@ -5,11 +5,24 @@ import { Button, Typography } from '@mui/material';
 
 import CarCard from './CarCard';
 import FollowUs from './FollowUs';
-import getCars from '../lib/cars';
+import axios from 'axios';
+import { ICar } from '../types';
+import useSWR from 'swr';
 
 const CarCardContainer = () => {
   const router = useRouter();
-  const cars = getCars();
+  const fetcher = async (url: string) =>
+    await axios.get(url).then((res) => res.data);
+  const { data, error, isLoading } = useSWR('/api/cars', fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
+
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
+
+  const { cars }: { cars: ICar[] } = data;
   return (
     <div className='bg-[#111111] pt-8 m-4 rounded-xl shadow  shadow-emerald-400'>
       <Typography className='text-4xl font-extrabold text-center '>
