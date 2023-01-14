@@ -10,7 +10,7 @@ module.exports = {
         hero: "url('../public/hero.jpg')",
       },
       boxShadow: {
-        custom: '0px 0px 3px 0.5px #34d399;',
+        custom: '0px 0px 3px 0.5px #34d399',
       },
     },
   },
