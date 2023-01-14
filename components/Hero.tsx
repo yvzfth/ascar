@@ -86,15 +86,16 @@ const Hero = () => {
             className={'text-gray-300 text-sm md:text-md lg:text-lg  '}
           >
             Size en uygun arabayı bulmanıza yardımcı
-            <br />
-            olacağız. Göz at, modelleri karşılaştır.
-            <br />
+            <br className='hidden sm:block' />
+            olacağız. Göz at, modelleri karşılaştır.&nbsp;
+            <br className='hidden sm:block' />
             Araban seni bekliyor.
           </Typography>
           <Button
             className='group w-1/2 items-center px-4 py-3 hidden lg:flex'
             variant='outlined'
             color='error'
+            onClick={() => router.push('/about')}
           >
             HAKKIMIZDA
             <ChevronRightRoundedIcon className='group-hover:ml-2 pb-[0.075rem] transition-all' />
@@ -106,9 +107,6 @@ const Hero = () => {
         p-8 flex flex-col justify-center items-center 
         shadow-sm shadow-gray-200
         bg-transparent backdrop-blur-md'
-          //  shadow-slate-800 '
-          // bg-[#1b24305a]'
-          // bg-[#2B3A55]'
           component={'form'}
         >
           <FormControl>
@@ -217,14 +215,7 @@ const Hero = () => {
           </Button>
         </Paper>
       </div>
-      <div className='mx-auto -mt-44 lg:-mt-80  h-[16rem] lg:h-[30rem] bg-[url("/car-silver.png")] bg-no-repeat bg-contain bg-center  '>
-        {/* <Image
-          src={'/car-silver.png'}
-          width={500}
-          height={400}
-          alt='car-silver'
-        /> */}
-      </div>
+      <div className='mx-auto -mt-44 lg:-mt-80  h-[16rem] lg:h-[30rem] bg-[url("/car-silver.png")] bg-no-repeat bg-contain bg-center  '></div>
     </div>
   );
 };

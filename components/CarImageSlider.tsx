@@ -2,10 +2,10 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 
 interface CarImageSliderTypes {
-  imageUrls: string[];
+  images: string[];
 }
 
-const CarImageSlider = ({ imageUrls }: CarImageSliderTypes) => {
+const CarImageSlider = ({ images }: CarImageSliderTypes) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handlePreviousClick = () => {
@@ -15,7 +15,7 @@ const CarImageSlider = ({ imageUrls }: CarImageSliderTypes) => {
   };
 
   const handleNextClick = () => {
-    if (currentIndex < imageUrls.length - 1) {
+    if (currentIndex < images.length - 1) {
       setCurrentIndex(currentIndex + 1);
     }
   };
@@ -62,7 +62,7 @@ const CarImageSlider = ({ imageUrls }: CarImageSliderTypes) => {
         </svg>
       </button>
 
-      <Image src={imageUrls[currentIndex]} alt='Car' fill />
+      <Image src={images[currentIndex]} alt='Car' fill />
     </div>
   );
 };

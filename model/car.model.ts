@@ -8,7 +8,7 @@ const carSchema = new Schema<ICar>({
   model: String,
   year: Number,
   price: Number,
-  imageUrl: String,
+  images: [String],
   engine: String,
   transmission: String,
   fuelType: String,

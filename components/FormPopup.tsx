@@ -19,6 +19,8 @@ import features from '../lib/features';
 import models from '../lib/models';
 import { ICar } from '../types';
 import axios from 'axios';
+import _ from 'lodash';
+import { BeachAccess, ImagesearchRoller } from '@mui/icons-material';
 
 const currentYear = new Date().getFullYear();
 const formDataInitialState = {
@@ -27,7 +29,7 @@ const formDataInitialState = {
   model: '',
   year: currentYear,
   price: 0,
-  imageUrl: '',
+  images: [],
   engine: '',
   transmission: '',
   fuelType: '',
@@ -44,22 +46,28 @@ const ImagePreview = dynamic(() => import('./ImagePreview'), {
 export default function DialogSelect() {
   const [open, setOpen] = React.useState(false);
   const [next, setNext] = React.useState(0);
-
+  // const [images, setImages] = React.useState<string[]>([]);
+  // const [files, setFiles] = React.useState<FileList>();
   const [formData, setFormData] = React.useState<ICar>(formDataInitialState);
   const resetStates = () => {
     setNext(0);
     setFormData(formDataInitialState);
   };
   const selectImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileName = e.target.files && e?.target?.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(fileName!);
-    reader.onloadend = function () {
-      setFormData({
-        ...formData,
-        imageUrl: String(reader.result!),
-      });
-    };
+    const files = e.target?.files;
+    if (files) {
+      const arr: string[] = [];
+      // setFiles(files);
+      for (var i = 0; i < files?.length!; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          arr.push(String(reader.result));
+        };
+        setFormData({ ...formData, images: arr });
+      }
+    }
   };
 
   const handleSelectChange = (event: SelectChangeEvent<string>) => {
@@ -88,9 +96,15 @@ export default function DialogSelect() {
   };
   const handleSubmit = () => {
     setOpen(false);
-
-    axios.post('/api/cars', formData);
-
+    // console.log(formData);
+    axios.post('/api/cars', formData, {
+      maxContentLength: 100000000,
+      maxBodyLength: 1000000000,
+    });
+    // fetch('/api/cars', { method: 'POST', body: JSON.stringify(formData) })
+    //   .then((response) => response.json())
+    //   .then((data) => console.log(data))
+    //   .catch((error) => console.log(error));
     resetStates();
   };
 
@@ -319,15 +333,15 @@ export default function DialogSelect() {
                     type='file'
                     accept='.jpg, .png, .jpeg, image/*'
                     id='image-picker'
-                    multiple={false}
+                    multiple={true}
                     onChange={selectImage}
                   />
                 </Button>
               </div>
-              {formData?.imageUrl !== '' &&
-                typeof formData?.imageUrl !== 'undefined' && (
-                  <ImagePreview imageUrl={formData.imageUrl} />
-                )}
+              {!_.isEmpty(formData?.images) &&
+                formData?.images?.map((image, index) => (
+                  <ImagePreview key={index} imageUrl={image} />
+                ))}
             </div>
           </form>
           <div

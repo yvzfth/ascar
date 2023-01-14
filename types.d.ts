@@ -5,7 +5,7 @@ export interface ICar {
   model: string;
   year: number;
   price: number;
-  imageUrl: string;
+  images: string[];
   engine: string;
   transmission: string;
   fuelType: string;

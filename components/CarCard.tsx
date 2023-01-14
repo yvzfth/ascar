@@ -19,7 +19,7 @@ export default function CarCard({ car }: { car: ICar }) {
       <div className=' relative  w-full h-44'>
         <Image
           className='rounded-t-xl hover:scale-[1.01] hover:rounded-t-2xl transition-all ease-in-out duration-200'
-          src={car?.imageUrl}
+          src={car?.images[0]}
           alt='car-image'
           fill={true}
         />

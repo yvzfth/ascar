@@ -3,6 +3,7 @@ import connectDB from '../../middleware/mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Car from '../../model/car.model';
 import { ObjectId } from 'mongodb';
+import { config } from '../../api.config';
 
 async function test(req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -62,3 +63,4 @@ async function test(req: NextApiRequest, res: NextApiResponse) {
 }
 
 export default connectDB(test);
+export { config };
