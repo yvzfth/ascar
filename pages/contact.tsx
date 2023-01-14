@@ -9,7 +9,7 @@ import MapContainer from '../components/MapContainer';
 
 const Contact = () => {
   return (
-    <div className='pb-8'>
+    <div className='pb-8 mt-[5.5rem]'>
       <div className='items-center justify-center flex w-full p-10 flex-col lg:flex-row lg:space-x-20'>
         <div className='lg:w-1/3 p-10 flex flex-col items-center justify-center lg:justify-start lg:items-start'>
           <div className='flex flex-col justify-center items-center lg:items-start'>

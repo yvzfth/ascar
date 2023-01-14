@@ -32,7 +32,7 @@ const AllCars = () => {
   if (_.isEmpty(cars)) return <div>Loading</div>;
   return (
     <div className='flex flex-col justify-center w-full items-center'>
-      <div className='flex flex-col md:flex-row md:items-center md:justify-center gap-4 p-4  m-4  bg-[#111111]  rounded-xl shadow  shadow-emerald-400'>
+      <div className='flex flex-col md:flex-row md:items-center md:justify-center gap-4 p-4  m-4  bg-[#111111]  rounded-xl shadow-custom'>
         <div className='relative rounded-md shadow-sm '>
           <input
             id='search'
@@ -86,7 +86,7 @@ const AllCars = () => {
           </select>
         </div>
       </div>
-      <div className='flex flex-wrap gap-8 items-center justify-center  bg-[#111111] p-8 m-4 rounded-xl shadow  shadow-emerald-400'>
+      <div className='flex flex-wrap gap-8 items-center justify-center  bg-[#111111] p-8 m-4 rounded-xl shadow-custom'>
         {filteredCars?.map((car, index) => (
           <div key={index}>
             <CarCard car={car} />

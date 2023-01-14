@@ -26,7 +26,7 @@ const RelatedCars = ({ _id }: { _id: string }) => {
   if (relatedCars?.length === 0)
     relatedCars?.push(getRandomElement(cars!, currentCar!)!);
   return (
-    <div className=' bg-[#111111] pt-8  rounded-xl shadow  shadow-emerald-400'>
+    <div className=' bg-[#111111] pt-8  rounded-xl shadow-custom'>
       <div className=' z-10 py-2 px-4 bg-white shadow'>
         <h3 className='text-xl font-semibold text-gray-800'>Related Cars</h3>
       </div>

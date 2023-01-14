@@ -4,7 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 const About = () => {
   return (
-    <div className='h-screen'>
+    <div className='h-screen mt-[5.5rem]'>
       <div className='min-h-screen flex flex-col'>
         <main className='bg-[#111] container mx-auto px-6 py-8 m-4'>
           <h1 className='text-3xl font-bold text-gray-100 mb-6'>About Us</h1>

@@ -13,12 +13,12 @@ const CarCardContainer = () => {
   const cars = React.useContext(CarContext);
 
   return (
-    <div className='bg-[#111111] pt-8 m-4 rounded-xl shadow  shadow-emerald-400'>
+    <div className='bg-[#111111] pt-8 m-4 rounded-xl shadow-custom'>
       <Typography className='text-4xl font-extrabold text-center '>
         Öne Çıkan Araçlar
       </Typography>
       {/*  [&>:first-child]:h-[40rem] [&>:first-child]:w-[40rem]  */}
-      <div className='flex items-center justify-between w-full px-20 py-10 gap-10 flex-col lg:flex-row lg:flex-wrap'>
+      <div className='flex items-center w-full p-8 gap-10 flex-col lg:flex-row lg:flex-wrap lg:m-auto lg:w-fit'>
         {cars && cars.map((car, index) => <CarCard key={index} car={car} />)}
       </div>
       <div className='flex flex-col lg:flex-row justify-between items-center px-20 py-10 space-y-8'>

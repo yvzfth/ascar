@@ -21,6 +21,21 @@ import { ICar } from '../types';
 import axios from 'axios';
 
 const currentYear = new Date().getFullYear();
+const formDataInitialState = {
+  _id: null,
+  make: '',
+  model: '',
+  year: currentYear,
+  price: 0,
+  imageUrl: '',
+  engine: '',
+  transmission: '',
+  fuelType: '',
+  color: '',
+  mileage: 0,
+  features: [],
+  technologies: [],
+};
 const years = Array.from({ length: 30 }, (_, i) => currentYear - i);
 const ImagePreview = dynamic(() => import('./ImagePreview'), {
   ssr: false,
@@ -30,39 +45,10 @@ export default function DialogSelect() {
   const [open, setOpen] = React.useState(false);
   const [next, setNext] = React.useState(0);
 
-  const [formData, setFormData] = React.useState<ICar>({
-    _id: null,
-    make: '',
-    model: '',
-    year: currentYear,
-    price: 0,
-    imageUrl: '',
-    engine: '',
-    transmission: '',
-    fuelType: '',
-    color: '',
-    mileage: 0,
-    features: [],
-    technologies: [],
-  });
+  const [formData, setFormData] = React.useState<ICar>(formDataInitialState);
   const resetStates = () => {
     setNext(0);
-    // setFile(undefined);
-    setFormData({
-      _id: null,
-      make: '',
-      model: '',
-      year: currentYear,
-      price: 0,
-      imageUrl: '',
-      engine: '',
-      transmission: '',
-      fuelType: '',
-      color: '',
-      mileage: 0,
-      features: [],
-      technologies: [],
-    });
+    setFormData(formDataInitialState);
   };
   const selectImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileName = e.target.files && e?.target?.files[0];
@@ -102,7 +88,6 @@ export default function DialogSelect() {
   };
   const handleSubmit = () => {
     setOpen(false);
-    console.log(formData);
 
     axios.post('/api/cars', formData);
 

@@ -32,7 +32,7 @@ const Car = () => {
   const car = cars?.find((car) => car?._id == _id!);
   if (_.isEmpty(cars)) return <div>Loading</div>;
   return (
-    <div>
+    <div className='mt-[5.5rem]'>
       <div className='container mx-auto py-4 '>
         <div>
           <Header

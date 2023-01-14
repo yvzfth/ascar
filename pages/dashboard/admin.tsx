@@ -7,7 +7,7 @@ const AdminDashboard = () => {
   const cars = React.useContext(CarContext);
   if (_.isEmpty(cars)) return <div>Loading</div>;
   return (
-    <div className='bg-gray-200 min-h-screen flex flex-col'>
+    <div className='bg-gray-200 min-h-screen flex flex-col mt-[5.5rem]'>
       <main className='container mx-auto px-6'>
         <div className='flex justify-between items-center py-4'>
           <h2 className='text-xl font-bold text-gray-900 '>Cars</h2>

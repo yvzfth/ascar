@@ -1,24 +1,29 @@
 import React, { useRef, useState } from 'react';
 import Paper from '@mui/material/Paper';
-import { Button, Select, Typography } from '@mui/material';
+
+import {
+  Button,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  Typography,
+} from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-import NativeSelect from '@mui/material/NativeSelect';
-import axios from 'axios';
-import { ICar } from '../types';
-import useSWR from 'swr';
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import { useRouter } from 'next/router';
 import { CarContext } from '../lib/CarContext';
+import Image from 'next/image';
 
 const prices = {
-  '100 bin ₺': '100000',
-  '200 bin ₺': '200000',
-  '300 bin ₺': '300000',
-  '400 bin ₺': '400000',
-  '500 bin ₺': '500000',
-  '1 milyon ₺': '1000000',
-  '1.5 milyon ₺': '1500000',
-  '2 milyon ₺': '2000000',
+  '100000': '100 bin ₺',
+  '200000': '200 bin ₺',
+  '300000': '300 bin ₺',
+  '400000': '400 bin ₺',
+  '500000': '500 bin ₺',
+  '1000000': '1 milyon ₺',
+  '1500000': '1.5 milyon ₺',
+  '2000000': '2 milyon ₺',
 };
 
 const Hero = () => {
@@ -56,144 +61,170 @@ const Hero = () => {
     }
   };
   return (
-    <div
-      className='w-full flex flex-col items-center  lg:pt-20 lg:items-start 
-     lg:flex-row lg:justify-evenly bg-hero bg-no-repeat bg-center bg-cover h-screen'
-    >
-      <Paper
-        className='
-      bg-transparent
-      backdrop-blur-md
-       p-10 lg:p-8  max-w-[20rem] lg:max-w-[26rem] 
-       shadow-sm shadow-red-400 mt-8 lg:m-8  text-center lg:text-left'
+    <div>
+      <div
+        className={
+          ' w-full flex flex-col gap-8 items-center p-8 lg:p-16  lg:items-start lg:flex-row lg:justify-evenly bg-hero bg-no-repeat bg-center bg-cover bg-fixed h-screen'
+        }
       >
-        <Typography className='text-white text-4xl lg:text-6xl font-bold '>
-          Hayalindeki <br />
-          arabayı bul
-        </Typography>
-        <Typography className='text-gray-300 text-sm  md:text-md lg:text-lg  pt-2 lg:pt-6'>
-          Size en uygun arabayı bulmanıza yardımcı olacağız. Göz at, modelleri
-          karşılaştır ve araban seni bekliyor.
-        </Typography>
-      </Paper>
-      <Paper
-        ref={paperRef}
-        className=' max-w-[20rem] w-[20rem] lg:w-[26rem] lg:max-w-[26rem]
-        p-8 lg:p-10 m-8 flex flex-col justify-center items-center 
+        <Paper
+          className='
+            bg-transparent
+            backdrop-blur-md
+            p-8  
+            shadow-sm shadow-red-400 
+            text-center lg:text-left
+            space-y-4'
+        >
+          <Typography
+            className={'text-white text-4xl md:text-5xl lg:text-7xl font-bold '}
+          >
+            Hayalindeki <br />
+            arabayı bul
+          </Typography>
+          <Typography
+            className={'text-gray-300 text-sm md:text-md lg:text-lg  '}
+          >
+            Size en uygun arabayı bulmanıza yardımcı
+            <br />
+            olacağız. Göz at, modelleri karşılaştır.
+            <br />
+            Araban seni bekliyor.
+          </Typography>
+          <Button
+            className='group w-1/2 items-center px-4 py-3 hidden lg:flex'
+            variant='outlined'
+            color='error'
+          >
+            HAKKIMIZDA
+            <ChevronRightRoundedIcon className='group-hover:ml-2 pb-[0.075rem] transition-all' />
+          </Button>
+        </Paper>
+        <Paper
+          ref={paperRef}
+          className=' max-w-[20rem] w-[20rem] lg:w-[26rem] lg:max-w-[26rem]
+        p-8 flex flex-col justify-center items-center 
         shadow-sm shadow-gray-200
         bg-transparent backdrop-blur-md'
-        //  shadow-slate-800 '
-        // bg-[#1b24305a]'
-        // bg-[#2B3A55]'
-        component={'form'}
-      >
-        <FormControl className='w-[15rem] lg:w-[20rem]'>
-          <InputLabel
-            className='text-slate-400 text-sm'
-            variant='standard'
-            htmlFor='marks-select'
-          >
-            Araç Markası Seçiniz
-          </InputLabel>
-          <Select
-            // className='text-white '
-            defaultValue={selectedMake}
-            className='text-white border-gray-500 border-b'
-            inputProps={{
-              name: 'marks',
-              id: 'marks-select',
-            }}
-            onChange={(e) => setSelectedMake(e.target.value)}
-          >
-            <option className='text-white' value={'Hepsi'}>
-              Hepsi
-            </option>
-            {Array.from(makes).map((make) => (
-              <option value={make} key={make}>
-                {make}
-              </option>
-            ))}
-          </Select>
-          <div className='flex pt-10 justify-between'>
-            <div>
-              <FormControl className='max-w-[10rem]'>
-                <InputLabel
-                  //   className='text-slate-400'
-                  variant='standard'
-                  htmlFor='min-price'
-                  className='text-slate-400 text-sm'
-                >
-                  Alt Limit
-                </InputLabel>
-                <NativeSelect
-                  className='w-[6.5rem] text-white border-gray-500 border-b'
-                  defaultValue={selectedMinPrice}
-                  inputProps={{
-                    name: 'min',
-                    id: 'min-price',
-                  }}
-                  onChange={(e) => setSelectedMinPrice(e.target.value)}
-                >
-                  <option className='text-white' value={'-'}>
-                    -
-                  </option>
-                  {Object.entries(prices)
-                    .slice(0, -1)
-                    .map(([key, value]) => (
-                      <option value={value} key={value}>
-                        {key}
-                      </option>
-                    ))}
-                </NativeSelect>
-              </FormControl>
-            </div>
-            <div>
-              <FormControl className='max-w-[10rem]'>
-                <InputLabel
-                  //   className='text-slate-400'
-                  variant='standard'
-                  htmlFor='max-price'
-                  className='text-slate-400 text-sm'
-                >
-                  Üst Limit
-                </InputLabel>
-                <NativeSelect
-                  className='w-[6.5rem] block text-white border-gray-500 border-b'
-                  defaultValue={selectedMaxPrice}
-                  inputProps={{
-                    name: 'max',
-                    id: 'max-price',
-                  }}
-                  onChange={(e) => setSelectedMaxPrice(e.target.value)}
-                >
-                  <option className='text-white' value={'-'}>
-                    -
-                  </option>
-                  {Object.entries(prices)
-                    ?.slice(1)
-                    ?.map(([key, value]) => (
-                      <option value={value} key={value}>
-                        {key}
-                      </option>
-                    ))}
-                </NativeSelect>
-              </FormControl>
-            </div>
-          </div>
-          <div ref={ref} hidden className='text-center p-2 text-red-700'>
-            Fiyat aralığı yanlış
-          </div>
-        </FormControl>
-        <Button
-          onClick={search}
-          fullWidth
-          className='mt-10'
-          color='error'
-          variant='contained'
+          //  shadow-slate-800 '
+          // bg-[#1b24305a]'
+          // bg-[#2B3A55]'
+          component={'form'}
         >
-          Ara
-        </Button>
-      </Paper>
+          <FormControl>
+            <FormControl>
+              <InputLabel className='text-gray-200' id='make-select-label'>
+                Araç Markası Seçiniz
+              </InputLabel>
+              <Select
+                labelId='make-select-label'
+                id='make-select'
+                name='make'
+                className='text-white w-[16rem] lg:w-[22rem]'
+                defaultValue={selectedMake}
+                value={selectedMake}
+                onChange={(e) => setSelectedMake(e.target.value)}
+                input={<OutlinedInput label='Araç Markası Seçiniz' />}
+              >
+                <MenuItem key={'Hepsi'} value={'Hepsi'}>
+                  Hepsi
+                </MenuItem>
+                {Array.from(makes).map((make) => (
+                  <MenuItem key={make} value={make}>
+                    {make}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <div className='flex pt-8 justify-between w-full'>
+              <div>
+                <FormControl>
+                  <InputLabel
+                    id='min-select-label'
+                    className='text-gray-200 text-sm'
+                  >
+                    Alt Fiyat
+                  </InputLabel>
+                  <Select
+                    labelId='min-select-label'
+                    name='min'
+                    id='min'
+                    className='text-white w-[7rem] lg:w-[10rem] text-sm'
+                    defaultValue={selectedMinPrice}
+                    value={selectedMinPrice}
+                    input={<OutlinedInput label='Min Fiyat' />}
+                    onChange={(e) => setSelectedMinPrice(e.target.value)}
+                  >
+                    <MenuItem key={'-'} value={'-'}>
+                      -
+                    </MenuItem>
+                    {Object.entries(prices)
+                      .slice(0, -1)
+                      .map(([key, value]) => (
+                        <MenuItem key={key} value={key}>
+                          {value}
+                        </MenuItem>
+                      ))}
+                  </Select>
+                </FormControl>
+              </div>
+              <div>
+                <FormControl>
+                  <InputLabel
+                    id='max-select-label'
+                    className='text-gray-200 text-sm'
+                  >
+                    Üst Fiyat
+                  </InputLabel>
+                  <Select
+                    color='primary'
+                    labelId='max-select-label'
+                    name='max'
+                    id='max'
+                    className='text-white w-[7rem] lg:w-[10rem] text-sm'
+                    defaultValue={selectedMaxPrice}
+                    value={selectedMaxPrice}
+                    input={<OutlinedInput label='Üst Fiyat' />}
+                    onChange={(e) => setSelectedMaxPrice(e.target.value)}
+                  >
+                    <MenuItem key={'-'} value={'-'}>
+                      -
+                    </MenuItem>
+                    {Object.entries(prices)
+                      .slice(1)
+                      .map(([key, value]) => (
+                        <MenuItem key={key} value={key}>
+                          {value}
+                        </MenuItem>
+                      ))}
+                  </Select>
+                </FormControl>
+              </div>
+            </div>
+            <div ref={ref} hidden className='text-center p-2 text-red-700'>
+              Fiyat aralığı yanlış
+            </div>
+          </FormControl>
+          <Button
+            onClick={search}
+            fullWidth
+            className='mt-10'
+            color='error'
+            variant='contained'
+          >
+            Ara
+          </Button>
+        </Paper>
+      </div>
+      <div className='mx-auto -mt-44 lg:-mt-80  h-[16rem] lg:h-[30rem] bg-[url("/car-silver.png")] bg-no-repeat bg-contain bg-center  '>
+        {/* <Image
+          src={'/car-silver.png'}
+          width={500}
+          height={400}
+          alt='car-silver'
+        /> */}
+      </div>
     </div>
   );
 };

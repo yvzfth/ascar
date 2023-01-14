@@ -9,7 +9,7 @@ const Navbar = () => {
     <div
       id='navbar'
       className={
-        'sticky top-0 flex py-4 px-8 lg:px-16 w-screen items-center justify-between'
+        'fixed top-0 z-50 bg-black flex py-4 px-8 lg:px-16 w-screen items-center justify-between'
       }
     >
       <div className='max-lg:hidden'>

@@ -22,7 +22,7 @@ const PopularMakes = () => {
   }, [selectedMake, cars]);
 
   return (
-    <div className='bg-[#111111] p-4 m-4 rounded-xl shadow  shadow-emerald-400'>
+    <div className='bg-[#111111] p-4 m-4 rounded-xl shadow-custom'>
       <div className='text-center text-4xl font-extrabold py-4'>
         Popüler Markalar
       </div>
@@ -42,8 +42,11 @@ const PopularMakes = () => {
               //   <p className='text-xs'>{carsByMake![make].length} Araç</p>
               // </div>
               <Button
-                className='flex flex-col normal-case space-y-2'
-                color='inherit'
+                className={
+                  (selectedMake !== make ? 'border-[0.5px] hover:border' : '') +
+                  ' flex flex-col normal-case space-y-2 px-6'
+                }
+                color={selectedMake === make ? 'primary' : 'inherit'}
                 variant='outlined'
                 key={make}
                 onClick={() => setSelectedMake(make)}
