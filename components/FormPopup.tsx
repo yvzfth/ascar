@@ -97,14 +97,12 @@ export default function DialogSelect() {
   const handleSubmit = () => {
     setOpen(false);
     // console.log(formData);
-    axios.post('/api/cars', formData, {
-      maxContentLength: 100000000,
-      maxBodyLength: 1000000000,
-    });
-    // fetch('/api/cars', { method: 'POST', body: JSON.stringify(formData) })
-    //   .then((response) => response.json())
-    //   .then((data) => console.log(data))
-    //   .catch((error) => console.log(error));
+    axios
+      .post('/api/cars', formData, {
+        maxContentLength: 100000000,
+        maxBodyLength: 1000000000,
+      })
+      .then(() => alert('Araç eklendi'));
     resetStates();
   };
 

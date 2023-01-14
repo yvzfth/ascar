@@ -2,6 +2,8 @@ import React from 'react';
 import FormPopup from '../../components/FormPopup';
 import { CarContext } from '../../lib/CarContext';
 import _ from 'lodash';
+import { Button } from '@mui/material';
+import axios from 'axios';
 
 const AdminDashboard = () => {
   const cars = React.useContext(CarContext);
@@ -14,13 +16,13 @@ const AdminDashboard = () => {
           <FormPopup />
         </div>
         <table className='w-full text-gray-700'>
-          <thead>
-            <tr className='bg-gray-400'>
-              <th className='px-4 py-2'>Make</th>
+          <thead className='rounded'>
+            <tr className='bg-sky-500'>
+              <th className='px-4 py-2'>Marka</th>
               <th className='px-4 py-2'>Model</th>
-              <th className='px-4 py-2'>Year</th>
-              <th className='px-4 py-2'>Fuel Type</th>
-              <th className='px-4 py-2'>Transmission</th>
+              <th className='px-4 py-2'>Yıl</th>
+              <th className='px-4 py-2'>Yakıt</th>
+              <th className='px-4 py-2'>Vites</th>
               <th className='px-4 py-2'></th>
             </tr>
           </thead>
@@ -34,9 +36,32 @@ const AdminDashboard = () => {
                   <td className='px-4 py-2'>{car?.fuelType}</td>
                   <td className='px-4 py-2'>{car?.transmission}</td>
                   <td className='px-4 py-2 flex items-center'>
-                    <button className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>
-                      Delete
-                    </button>
+                    <Button
+                      color='error'
+                      variant='contained'
+                      onClick={() =>
+                        axios
+                          .delete('/api/cars', { data: car?._id })
+                          .then(() =>
+                            alert(
+                              'Araç Silindi:\n' +
+                                car?._id +
+                                '\n' +
+                                car?.make +
+                                '\n' +
+                                car?.model +
+                                '\n' +
+                                car?.year +
+                                '\n' +
+                                car?.fuelType +
+                                '\n' +
+                                car?.transmission
+                            )
+                          )
+                      }
+                    >
+                      SİL
+                    </Button>
                   </td>
                 </tr>
               ))}

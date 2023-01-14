@@ -17,9 +17,9 @@ export default function App({
       return res.data;
     });
   const { data } = useSWR('/api/cars', fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
+    revalidateIfStale: true,
+    revalidateOnFocus: true,
+    revalidateOnReconnect: true,
   });
 
   const { cars }: { cars: ICar[] } = data ? data : [];

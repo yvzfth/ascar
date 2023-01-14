@@ -10,19 +10,30 @@ async function test(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
       let data = req.body;
       data = { ...data, _id: new ObjectId() };
-      console.log(data);
+      // console.log(data);
 
       const car = await new Car(data);
 
       car.save();
-      console.log(car.insertedId);
+      // console.log(car.insertedId);
 
-      res
-        .status(200)
-        .send('car has been inserted to db with id: ' + car.insertedId);
-    } else {
+      res.status(200).send('car has been inserted to db');
+    }
+    if (req.method === 'GET') {
       const cars = await Car.find({});
       res.status(201).json({ cars });
+    }
+    if (req.method === 'DELETE') {
+      const id = req.body;
+
+      Car.findByIdAndDelete(id, function (err: any, docs: any) {
+        if (!err) {
+          // console.log(docs);
+        } else {
+          console.log(err);
+        }
+      });
+      res.status(200).send('deleted');
     }
     // const car = new CarModel({
     //   id: 14,
