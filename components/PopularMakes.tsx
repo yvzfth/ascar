@@ -27,8 +27,8 @@ const PopularMakes = () => {
         Popüler Markalar
       </div>
 
-      <div className='flex flex-col space-y-4 lg:px-12 w-full'>
-        <div className='flex items-center justify-center gap-4 py-4 overflow-x-scroll'>
+      <div className='flex flex-col space-y-4 lg:px-12'>
+        <div className='flex items-center gap-4 py-4 overflow-x-scroll [&>:first-child]:ml-auto [&>:last-child]:mr-auto'>
           {cars &&
             carsByMake &&
             makes &&
@@ -43,8 +43,10 @@ const PopularMakes = () => {
               // </div>
               <Button
                 className={
-                  (selectedMake !== make ? 'border-[0.5px] hover:border' : '') +
-                  ' flex flex-col normal-case space-y-2 px-6'
+                  (selectedMake !== make
+                    ? 'border-[0.5px] border-white border-opacity-50 hover:border-opacity-100 hover:bg-white hover:bg-opacity-5'
+                    : '') +
+                  ' flex flex-col normal-case px-6 whitespace-nowrap min-w-fit '
                 }
                 color={selectedMake === make ? 'primary' : 'inherit'}
                 variant='outlined'
@@ -59,7 +61,7 @@ const PopularMakes = () => {
             ))}
         </div>
 
-        <div className='flex items-center justify-center gap-4 py-4 overflow-x-scroll'>
+        <div className='flex items-center gap-4 py-4 overflow-x-scroll [&>:first-child]:ml-auto [&>:last-child]:mr-auto'>
           {filteredCars?.map((car, index) => (
             <CarCard key={index} car={car} />
           ))}

@@ -1,7 +1,5 @@
 import React from 'react';
-import axios from 'axios';
-import useSWR from 'swr';
-import CarCard from './CarCard'; // import your CarCard component
+import CarCard from './CarCard';
 
 import { ICar } from '../types';
 import { CarContext } from '../lib/CarContext';
@@ -28,12 +26,12 @@ const RelatedCars = ({ _id }: { _id: string }) => {
   return (
     <div className=' bg-[#111111] pt-8  rounded-xl shadow-custom'>
       <div className=' z-10 py-2 px-4 bg-white shadow'>
-        <h3 className='text-xl font-semibold text-gray-800'>Related Cars</h3>
+        <h3 className='text-xl font-semibold text-gray-800'>Benzer Araçlar</h3>
       </div>
       <div className='pb-4/5 overflow-hidden bg-transparent rounded-lg shadow-lg'>
         <div className=' pb-4/5 overflow-hidden bg-transparent rounded-lg shadow-lg'>
           <div className=' bg-transparent rounded-lg shadow-lg'>
-            <div className='flex items-center gap-4 w-full px-4 py-10 overflow-x-scroll'>
+            <div className='flex items-center gap-4 px-4 py-10 overflow-x-scroll [&>:first-child]:ml-auto [&>:last-child]:mr-auto'>
               {relatedCars.map((car, index) => (
                 <CarCard key={index} car={car} />
               ))}

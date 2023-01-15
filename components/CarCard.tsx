@@ -12,7 +12,7 @@ export default function CarCard({ car }: { car: ICar }) {
   return (
     <Card
       className={
-        'group rounded-xl w-[20rem] min-w-[20rem] border-[rgb(var(--card-border-rgb))] border-[0.5px] hover:border cursor-pointer'
+        'group rounded-xl w-[20rem] min-w-[20rem] border-[rgb(var(--card-border-rgb))] border-[0.5px] cursor-pointer'
       }
       onClick={() => router.push(`/cars/${car._id}`)}
     >
