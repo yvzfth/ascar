@@ -14,5 +14,5 @@ export default function handler(
   if (req.method === 'POST') {
     base = req.body.base64;
     res.send({ base64: base });
-  } else res.status(200).send({ base64: base });
+  } else res.status(200).send({ base64: 'hello' });
 }

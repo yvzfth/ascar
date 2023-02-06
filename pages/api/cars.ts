@@ -4,14 +4,43 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import Car from '../../model/car.model';
 import { ObjectId } from 'mongodb';
 import { config } from '../../api.config';
+import { app, db } from '../../firebase';
+import {
+  collection,
+  addDoc,
+  getDocs,
+  updateDoc,
+  doc,
+  arrayUnion,
+} from 'firebase/firestore';
 
 async function test(req: NextApiRequest, res: NextApiResponse) {
   try {
     if (req.method === 'POST') {
       let data = req.body;
       data = { ...data, _id: new ObjectId() };
+      // delete data._id; // data = { ...data, _id: new ObjectId() };
       // console.log(data);
 
+      // try {
+      //   const images = data['images'];
+      //   delete data.images;
+      //   data.images = [];
+      //   const ref = await addDoc(collection(db, 'cars'), data);
+      //   //  .then((ref) =>
+      //   //     console.log('Document written with ID: ', ref.id)
+      //   //     );
+
+      //   const carRef = doc(db, 'cars', ref.id);
+
+      //   images.forEach((img: string) => {
+      //     updateDoc(carRef, {
+      //       images: arrayUnion(img),
+      //     });
+      //   });
+      // } catch (e) {
+      //   console.error('Error adding document: ', e);
+      // }
       const car = await new Car(data);
 
       car.save();
@@ -22,6 +51,13 @@ async function test(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
       const cars = await Car.find({});
       res.status(201).json({ cars });
+    }
+    if (req.method === 'UPDATE') {
+      // const washingtonRef = doc(db, "cars", "DC");
+      // // Set the "capital" field of the city 'DC'
+      // await updateDoc(washingtonRef, {
+      //   capital: true
+      // });
     }
     if (req.method === 'DELETE') {
       const id = req.body;

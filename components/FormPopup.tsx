@@ -20,7 +20,6 @@ import models from '../lib/models';
 import { ICar } from '../types';
 import axios from 'axios';
 import _ from 'lodash';
-import { BeachAccess, ImagesearchRoller } from '@mui/icons-material';
 
 const currentYear = new Date().getFullYear();
 const formDataInitialState = {
@@ -96,6 +95,7 @@ export default function DialogSelect() {
   };
   const handleSubmit = () => {
     setOpen(false);
+    // addDoc(dbInstance, formData).then(() => alert('Araç eklendi!!'));
     // console.log(formData);
     axios
       .post('/api/cars', formData, {
