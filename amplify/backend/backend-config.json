@@ -18,11 +18,8 @@
           "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
-          "PHONE_NUMBER",
-          "ADDRESS",
-          "NAME",
-          "FAMILY_NAME",
-          "EMAIL"
+          "EMAIL",
+          "PHONE_NUMBER"
         ],
         "socialProviders": [],
         "usernameAttributes": [
