@@ -8,7 +8,7 @@ import { ICar } from '../types';
 import axios from 'axios';
 import useSWR from 'swr';
 import awsExports from '../src/aws-exports';
-import AmplifyAuthenticator from '@aws-amplify/ui-react';
+import { Authenticator } from '@aws-amplify/ui-react';
 import { Amplify } from 'aws-amplify';
 Amplify.configure({ ...awsExports, ssr: true });
 
@@ -28,7 +28,7 @@ export default function App({
 
   const { cars }: { cars: ICar[] } = data ? data : [];
   return (
-    <AmplifyAuthenticator.Authenticator>
+    <Authenticator>
       <SessionProvider session={session}>
         <CarContext.Provider value={cars}>
           <Layout>
@@ -36,6 +36,6 @@ export default function App({
           </Layout>
         </CarContext.Provider>
       </SessionProvider>
-    </AmplifyAuthenticator.Authenticator>
+    </Authenticator>
   );
 }
