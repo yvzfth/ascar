@@ -1,5 +1,4 @@
 import * as React from 'react';
-import dynamic from 'next/dynamic';
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import Button from '@mui/material/Button';
@@ -20,6 +19,7 @@ import models from '../lib/models';
 import { ICar } from '../types';
 import axios from 'axios';
 import _ from 'lodash';
+import ImagePreview from './ImagePreview';
 
 const currentYear = new Date().getFullYear();
 const formDataInitialState = {
@@ -38,10 +38,7 @@ const formDataInitialState = {
   technologies: [],
 };
 const years = Array.from({ length: 30 }, (_, i) => currentYear - i);
-const ImagePreview = dynamic(() => import('./ImagePreview'), {
-  ssr: false,
-  loading: () => <div>Loading...</div>,
-});
+
 export default function DialogSelect() {
   const [open, setOpen] = React.useState(false);
   const [next, setNext] = React.useState(0);

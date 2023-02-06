@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
+
 import { Button } from '@mui/material';
 import axios from 'axios';
 import useSWR from 'swr';
@@ -12,18 +12,11 @@ import { ICar } from '../../../types';
 import separateThreeDigitsWithDot from '../../../utils/separateThreeDigitsWithDot';
 import { CarContext } from '../../../lib/CarContext';
 import _ from 'lodash';
-const MapContainer = dynamic(() => import('../../../components/MapContainer'), {
-  ssr: false,
-});
-const Technologies = dynamic(() => import('../../../components/Technologies'), {
-  ssr: false,
-});
-const Features = dynamic(() => import('../../../components/Features'), {
-  ssr: false,
-});
-const RelatedCars = dynamic(() => import('../../../components/RelatedCars'), {
-  ssr: false,
-});
+import MapContainer from '../../../components/MapContainer';
+import RelatedCars from '../../../components/RelatedCars';
+import Features from '../../../components/Features';
+import Technologies from '../../../components/Technologies';
+
 const Car = () => {
   const router = useRouter();
   const { _id } = router.query;
