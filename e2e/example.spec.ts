@@ -1,18 +1,19 @@
 import { test, expect } from '@playwright/test';
 
-test('Ascar', async ({ page }) => {
+test('AsCar', async ({ page }) => {
   await page.goto('https://www.fatih-yavuz.com/');
 
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Playwright/);
 });
 
-test('Ascar', async ({ page }) => {
+test('AsCar', async ({ page }) => {
   await page.goto('https://www.fatih-yavuz.com/');
+  // The new url should be "/about" (baseURL is used there)
+  await expect(page).toHaveURL('/about');
+  // Find an element with the text 'About Page' and click on it
+  await page.click('text=HAKKIMIZDA');
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'HAKKIMIZDA' }).click();
-
-  // Expects the URL to contain intro.
-  await expect(page).toHaveURL(/.*about/);
+  // The new page should contain an h1 with "About Page"
+  await expect(page.locator('div')).toContainText('HAKKIMIZDA Page');
 });
