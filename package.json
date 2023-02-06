@@ -7,7 +7,8 @@
     "build": "next build",
     "export": "next build && next export",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -39,6 +40,7 @@
     "typescript": "4.9.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.30.0",
     "@types/lodash": "^4.14.191",
     "@types/mapbox-gl": "^2.7.10",
     "@types/react-modal": "^3.13.1",
