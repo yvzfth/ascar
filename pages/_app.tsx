@@ -8,8 +8,8 @@ import { ICar } from '../types';
 import axios from 'axios';
 import useSWR from 'swr';
 import awsExports from '../src/aws-exports';
-import { Authenticator } from '@aws-amplify/ui-react';
 import { Amplify } from 'aws-amplify';
+import '@aws-amplify/ui-react/styles.css';
 Amplify.configure({ ...awsExports, ssr: true });
 
 export default function App({
@@ -28,14 +28,12 @@ export default function App({
 
   const { cars }: { cars: ICar[] } = data ? data : [];
   return (
-    <Authenticator>
-      <SessionProvider session={session}>
-        <CarContext.Provider value={cars}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </CarContext.Provider>
-      </SessionProvider>
-    </Authenticator>
+    <SessionProvider session={session}>
+      <CarContext.Provider value={cars}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </CarContext.Provider>
+    </SessionProvider>
   );
 }
