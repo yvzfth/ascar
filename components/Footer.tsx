@@ -12,7 +12,7 @@ const cinzel = Cinzel({ subsets: ['latin'] });
 
 const Footer = () => {
   return (
-    <footer className='bg-[rgb(2,9,22)] py-4 mt-8'>
+    <footer className='bg-[rgba(10,10,10,0.9)] py-4 mt-8'>
       <div
         className={
           cinzel.className +
