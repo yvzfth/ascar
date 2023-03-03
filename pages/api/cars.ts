@@ -1,6 +1,6 @@
 // pages/api/test.ts
-import connectDB from '../../middleware/mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import connectDB from '../../middleware/mongodb';
 import Car from '../../model/car.model';
 import { ObjectId } from 'mongodb';
 import { config } from '../../api.config';

@@ -64,7 +64,7 @@ const Hero = () => {
     <div>
       <div
         className={
-          ' w-full flex flex-col gap-8 items-center p-8 lg:p-16  lg:items-start lg:flex-row lg:justify-evenly bg-hero bg-no-repeat bg-center bg-cover bg-fixed h-screen'
+          'w-full flex flex-col gap-8 items-center p-8 lg:p-16  lg:items-start lg:flex-row lg:justify-evenly bg-hero bg-no-repeat bg-center bg-cover md:bg-fixed h-screen'
         }
       >
         <Paper
